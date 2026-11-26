@@ -1,0 +1,37 @@
+<button
+	data-part="button"
+	type="button"
+	ngCombobox
+	#combobox="ngCombobox"
+	[(expanded)]="expanded"
+	[disabled]="disabled()"
+	[attr.aria-label]="label()"
+>
+	{{ selectedLabel() }} <span data-part="span" aria-hidden="true">▾</span>
+</button>
+<ng-template data-part="ng-template" ngComboboxPopup [combobox]="combobox">
+	<div
+		data-part="div"
+		ngComboboxWidget
+		ngListbox
+		#listbox="ngListbox"
+		[activeDescendant]="listbox.activeDescendant()"
+		[value]="[value()]"
+		(valueChange)="select($event)"
+		[attr.aria-label]="label()"
+		focusMode="activedescendant"
+		selectionMode="explicit"
+	>
+		@for (option of options(); track option.value) {
+			<div
+				data-part="div-2"
+				ngOption
+				(click)="expanded.set(false)"
+				[value]="option.value"
+				[label]="option.label"
+			>
+				{{ option.label }}
+			</div>
+		}
+	</div>
+</ng-template>

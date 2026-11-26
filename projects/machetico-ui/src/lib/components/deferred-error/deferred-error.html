@@ -1,0 +1,10 @@
+<section data-part="section" role="alert">
+	<p data-part="p">
+		<ng-container i18n
+			>No pudimos cargar {{ section() }}. Revisá tu conexión y volvé a intentar.</ng-container
+		>
+	</p>
+	<button data-part="button" type="button" macheticoButton="outline" (click)="reload()">
+		<ng-container i18n>Volver a cargar </ng-container>
+	</button>
+</section>

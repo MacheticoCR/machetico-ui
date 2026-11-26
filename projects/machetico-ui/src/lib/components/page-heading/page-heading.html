@@ -1,0 +1,16 @@
+<header data-part="header">
+	<div data-part="div">
+		@if (eyebrow()) {
+			<p data-part="p">
+				{{ eyebrow() }}
+			</p>
+		}
+		<h1 data-part="h1">
+			{{ title() }}
+		</h1>
+		@if (description()) {
+			<p data-part="p-2" macheticoText>{{ description() }}</p>
+		}
+	</div>
+	<ng-content />
+</header>

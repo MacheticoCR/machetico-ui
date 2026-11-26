@@ -1,0 +1,19 @@
+<label data-part="label">
+	<ng-content select="[choicePreview]" />
+	<span data-part="span">
+		<input
+			data-part="input"
+			autocomplete="off"
+			type="radio"
+			[name]="name()"
+			[value]="value()"
+			[checked]="checked()"
+			[disabled]="disabled()"
+			(change)="choose()"
+		/>
+		{{ label() }}
+	</span>
+	@if (description()) {
+		<span data-part="span-2" macheticoText>{{ description() }}</span>
+	}
+</label>

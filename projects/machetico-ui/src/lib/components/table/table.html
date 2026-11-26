@@ -1,0 +1,73 @@
+<div data-part="div" [attr.aria-busy]="loading()">
+	<table data-part="table">
+		<caption data-part="caption">
+			{{
+				caption()
+			}}
+		</caption>
+		<thead data-part="thead">
+			<tr data-part="tr">
+				@for (column of columns(); track column.key) {
+					<th
+						data-part="th"
+						scope="col"
+						[attr.aria-sort]="
+							column.sortable
+								? sort()?.key === column.key
+									? sort()?.direction === 'asc'
+										? 'ascending'
+										: 'descending'
+									: 'none'
+								: null
+						"
+					>
+						@if (column.sortable) {
+							<button
+								data-part="button"
+								type="button"
+								[disabled]="loading()"
+								(click)="changeSort(column)"
+							>
+								{{ column.label }}
+							</button>
+						} @else {
+							{{ column.label }}
+						}
+					</th>
+				}
+			</tr>
+		</thead>
+		<tbody data-part="tbody">
+			@if (loading()) {
+				<tr data-part="tr-2">
+					<td data-part="td" [attr.colspan]="columns().length">
+						<span data-part="span" role="status">{{ loadingLabel() }}</span>
+					</td>
+				</tr>
+			} @else if (error()) {
+				<tr data-part="tr-3">
+					<td data-part="td-2" [attr.colspan]="columns().length">
+						<span data-part="span-2" role="alert">{{ error() }}</span>
+						<button data-part="button-2" type="button" (click)="retryRequested.emit()">
+							{{ retryLabel() }}
+						</button>
+					</td>
+				</tr>
+			} @else {
+				@for (row of rows(); track rowKey()(row)) {
+					<tr data-part="tr-4">
+						@for (column of columns(); track column.key) {
+							<td data-part="td-3">{{ column.value(row) }}</td>
+						}
+					</tr>
+				} @empty {
+					<tr data-part="tr-5">
+						<td data-part="td-4" [attr.colspan]="columns().length">
+							{{ emptyMessage() }}
+						</td>
+					</tr>
+				}
+			}
+		</tbody>
+	</table>
+</div>

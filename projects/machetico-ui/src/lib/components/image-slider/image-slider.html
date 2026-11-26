@@ -1,0 +1,68 @@
+<section
+	data-part="region"
+	role="region"
+	aria-roledescription="carrusel"
+	[attr.aria-label]="label()"
+	(mouseenter)="hovered.set(true)"
+	(mouseleave)="hovered.set(false)"
+	(focusin)="paused.set(true)"
+>
+	@if (active(); as slide) {
+		<figure
+			data-part="figure"
+			[attr.aria-live]="paused() ? 'polite' : 'off'"
+			aria-atomic="true"
+		>
+			@if (failed().has(slide.id)) {
+				<p role="alert" data-part="error">No se pudo cargar la imagen.</p>
+				<button type="button" data-part="retry" (click)="retry(slide.id)">
+					Reintentar
+				</button>
+			} @else {
+				<img
+					data-part="image"
+					[src]="slide.src"
+					[attr.srcset]="slide.srcset || null"
+					[alt]="slide.alt"
+					(error)="imageFailed(slide.id)"
+				/>
+			}
+			<figcaption data-part="caption">
+				{{ slide.caption }} · {{ activeIndex() + 1 }} / {{ slides().length }}
+			</figcaption>
+		</figure>
+		@if (slides().length > 1) {
+			<div data-part="controls">
+				<button
+					type="button"
+					data-part="previous"
+					aria-label="Imagen anterior"
+					(click)="select(activeIndex() - 1)"
+				>
+					Anterior
+				</button>
+				@for (slide of slides(); track slide.id; let i = $index) {
+					<button
+						type="button"
+						data-part="indicator"
+						[attr.aria-label]="'Ver ' + slide.caption"
+						[attr.aria-current]="i === activeIndex() ? 'true' : null"
+						(click)="select(i)"
+					>
+						{{ i + 1 }}
+					</button>
+				}
+				<button
+					type="button"
+					data-part="next"
+					aria-label="Imagen siguiente"
+					(click)="select(activeIndex() + 1)"
+				>
+					Siguiente
+				</button>
+			</div>
+		}
+	} @else {
+		<p data-part="empty">Sin imágenes.</p>
+	}
+</section>

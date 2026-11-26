@@ -1,0 +1,40 @@
+import { ChangeDetectionStrategy, Component, input, output } from '@angular/core';
+import { Button } from '../../directives/button/button.directive';
+
+/**
+ * Reusable headless presentation component owned by Angular.
+ *
+ * @class DeferredError
+ * @functions `reload`
+ */
+@Component({
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  host: {},
+  imports: [Button],
+  selector: 'machetico-deferred-error',
+  templateUrl: './deferred-error.html',
+})
+export class DeferredError {
+  /**
+   * Retry intent handled by the resource-owning application.
+   * @property retryRequested
+   */
+  public readonly retryRequested = output<void>();
+
+  /**
+   * Name of the unavailable section included in the accessible error message.
+   *
+   * @property section
+   */
+  public readonly section = input('esta sección');
+
+  /**
+   * Requests a retry from the consumer without reloading the application document.
+   *
+   * @function reload
+   *
+   */
+  public reload(): void {
+    this.retryRequested.emit();
+  }
+}

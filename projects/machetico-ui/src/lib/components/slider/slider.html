@@ -1,0 +1,15 @@
+<label data-part="label">
+	<span data-part="span"
+		>{{ label() }} <span data-part="span-2">{{ value() }}</span></span
+	>
+	<input
+		data-part="input"
+		type="range"
+		[min]="min()"
+		[max]="max()"
+		[step]="step()"
+		[value]="value()"
+		[disabled]="disabled()"
+		(input)="change($event)"
+	/>
+</label>

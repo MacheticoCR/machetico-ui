@@ -1,0 +1,19 @@
+{
+  "$schema": "../../node_modules/ng-packagr/ng-package.schema.json",
+  "dest": "../../dist/machetico-ui",
+  "lib": {
+    "entryFile": "src/public-api.ts"
+  },
+  "assets": [
+    {
+      "glob": "*",
+      "input": "assets",
+      "output": "assets"
+    },
+    {
+      "glob": "**/*",
+      "input": "package-docs",
+      "output": "."
+    }
+  ]
+}

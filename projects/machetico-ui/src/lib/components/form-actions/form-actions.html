@@ -1,0 +1,12 @@
+<button data-part="button" type="submit" macheticoButton="primary" [disabled]="disabled()">
+	{{ submitLabel() }}
+</button>
+<button
+	data-part="button-2"
+	type="button"
+	macheticoButton="secondary"
+	[disabled]="disabled()"
+	(click)="cancelled.emit()"
+>
+	{{ cancelLabel() }}
+</button>

@@ -1,0 +1,17 @@
+<div
+	data-part="div"
+	ngListbox
+	orientation="horizontal"
+	selectionMode="explicit"
+	[wrap]="true"
+	[value]="[value()]"
+	(valueChange)="select($event)"
+	[disabled]="disabled()"
+	[attr.aria-label]="label()"
+>
+	@for (option of options(); track option.value) {
+		<div data-part="div-2" ngOption [value]="option.value" [label]="option.label">
+			{{ option.label }}
+		</div>
+	}
+</div>

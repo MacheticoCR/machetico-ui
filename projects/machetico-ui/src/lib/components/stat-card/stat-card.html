@@ -1,0 +1,12 @@
+<article
+	data-part="article"
+	[macheticoCard]="attention() ? 'accent' : 'surface'"
+	macheticoCardPadding="md"
+>
+	<span data-part="span" macheticoText="caption">{{ label() }}</span>
+	<strong data-part="strong">{{ value() }}</strong>
+	@if (description()) {
+		<small data-part="small" macheticoText="caption">{{ description() }}</small>
+	}
+	<ng-content />
+</article>

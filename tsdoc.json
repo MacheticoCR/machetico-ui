@@ -1,0 +1,38 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/tsdoc/v0/tsdoc.schema.json",
+  "tagDefinitions": [
+    {
+      "tagName": "@function",
+      "syntaxKind": "block"
+    },
+    {
+      "tagName": "@property",
+      "syntaxKind": "block",
+      "allowMultiple": true
+    },
+    {
+      "tagName": "@class",
+      "syntaxKind": "block"
+    },
+    {
+      "tagName": "@abstract",
+      "syntaxKind": "modifier"
+    },
+    {
+      "tagName": "@functions",
+      "syntaxKind": "block"
+    },
+    {
+      "tagName": "@enum",
+      "syntaxKind": "block"
+    }
+  ],
+  "supportForTags": {
+    "@function": true,
+    "@property": true,
+    "@class": true,
+    "@abstract": true,
+    "@functions": true,
+    "@enum": true
+  }
+}

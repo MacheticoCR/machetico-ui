@@ -1,0 +1,14 @@
+<label [class]="labelClass()" data-part="label"
+	><input
+		[class]="inputClass()"
+		data-part="input"
+		autocomplete="off"
+		type="checkbox"
+		[name]="name()"
+		[id]="id()"
+		[checked]="checked()"
+		[disabled]="disabled() || formDisabled()"
+		(change)="changed($event)"
+		(blur)="touched()"
+	/>{{ label() }}</label
+>

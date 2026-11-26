@@ -1,0 +1,10 @@
+node_modules/
+dist/
+out-tsc/
+artifacts/
+demo/styles.css
+playwright-report/
+test-results/
+projects/machetico-ui/package-docs/
+projects/machetico-ui/README.md
+projects/machetico-ui/LICENSE

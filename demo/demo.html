@@ -1,0 +1,52 @@
+<main [attr.data-theme]="theme()">
+	<h1>Machetico UI</h1>
+	<p>Una biblioteca de comportamiento. La identidad pertenece a la aplicación.</p>
+	<label
+		>Identidad de ejemplo
+		<select [value]="theme()" (change)="theme.set($event.target.value)">
+			<option value="folio">Folio</option>
+			<option value="taurus">Taurus</option>
+			<option value="megaphone">Megaphone</option>
+		</select></label
+	>
+	<section macheticoCard>
+		<h2>Botones y paneles</h2>
+		<button macheticoButton [busy]="busy()" (click)="count.set(count() + 1)">
+			Acción {{ count() }}
+		</button>
+		<label
+			><input type="checkbox" [checked]="busy()" (change)="busy.set($event.target.checked)" />
+			Simular pendiente</label
+		>
+		<button macheticoButton="secondary" id="open-sidebar" (click)="sidebar.set(true)">
+			Abrir sidebar
+		</button>
+		<button macheticoButton="secondary" id="open-dialog" (click)="dialog.set(true)">
+			Abrir diálogo
+		</button>
+	</section>
+	<section macheticoCard>
+		<h2>Sliders y select Angular ARIA</h2>
+		<machetico-slider label="Volumen" [(value)]="value" />
+		<machetico-select label="Seleccionar opción" [options]="options" [(value)]="choice" />
+		<machetico-image-slider [slides]="slides" />
+	</section>
+	<section macheticoCard>
+		<machetico-table
+			caption="Datos sintéticos"
+			[rows]="rows"
+			[columns]="columns"
+			[rowKey]="key"
+			[sort]="sort()"
+			(sortChanged)="sort.set($event)"
+		/>
+	</section>
+	<machetico-sidebar title="Navegación" [(open)]="sidebar"
+		><nav><a href="#">Inicio</a></nav></machetico-sidebar
+	>
+	@if (dialog()) {
+		<machetico-dialog title="Confirmación" (closed)="dialog.set(false)"
+			><p>Contenido proporcionado por la aplicación.</p></machetico-dialog
+		>
+	}
+</main>

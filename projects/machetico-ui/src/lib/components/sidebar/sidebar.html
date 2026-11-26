@@ -1,0 +1,11 @@
+@if (open()) {
+	<machetico-dialog
+		[title]="title()"
+		placement="sidebar"
+		[side]="side()"
+		[busy]="busy()"
+		(closed)="dismiss()"
+	>
+		<div data-part="div"><ng-content /></div>
+	</machetico-dialog>
+}

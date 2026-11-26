@@ -1,0 +1,21 @@
+<label [class]="labelClass()" data-part="label"
+	>{{ label()
+	}}<textarea
+		[class]="inputClass()"
+		data-part="textarea"
+		[name]="name()"
+		[id]="id()"
+		[value]="value()"
+		[disabled]="disabled() || formDisabled()"
+		[required]="required()"
+		[attr.minlength]="minlength()"
+		[attr.maxlength]="maxlength()"
+		[attr.rows]="rows()"
+		autocomplete="off"
+		[placeholder]="placeholder()"
+		[attr.aria-describedby]="describedBy()"
+		[attr.aria-invalid]="invalid()"
+		(input)="changed($event)"
+		(blur)="touched()"
+	></textarea>
+</label>
