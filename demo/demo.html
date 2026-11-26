@@ -1,8 +1,10 @@
 <div class="docs-app" [attr.data-design]="appearance()">
-	<a href="#contenido" class="skip-link">Saltar al contenido</a>
+	<a href="#contenido" class="skip-link" (click)="skipToContent($event)">Saltar al contenido</a>
 	<header class="docs-topbar">
 		<a routerLink="/" class="docs-brand"><span aria-hidden="true">m/</span> Machetico UI</a>
-		<span class="docs-version">v0.1.0 · Angular ARIA first</span>
+		<span class="docs-version" [attr.title]="'Revisión: ' + revision"
+			>v{{ version }} · {{ revision }} · Angular ARIA first</span
+		>
 		<div class="docs-design">
 			<machetico-select label="Estilo de diseño" [options]="designs" [(value)]="appearance" />
 		</div>
@@ -20,7 +22,7 @@
 			<docs-navigation data-nav-id="desktop" />
 			<p>Comportamiento compartido.<br />Identidad propia.</p>
 		</aside>
-		<main id="contenido"><router-outlet /></main>
+		<main id="contenido" tabindex="-1"><router-outlet /></main>
 	</div>
 	<machetico-sidebar title="Documentación" [(open)]="menuOpen">
 		<docs-navigation data-nav-id="mobile" (selected)="menuOpen.set(false)" />

@@ -172,6 +172,7 @@ test('mobile documentation uses the library sidebar and retains horizontal overf
 }) => {
   await page.setViewportSize({ width: 390, height: 844 });
   await page.goto('/components');
+  await expect(page.locator('html')).toHaveAttribute('data-bootstrapped', 'true');
   await page.getByRole('button', { name: 'Menú', exact: true }).click();
   const drawer = page.getByRole('dialog', { name: 'Documentación', exact: true });
   await drawer.getByRole('button', { name: 'Directivas', exact: true }).click();
@@ -390,7 +391,8 @@ test('decorative local video plays only while the view is visible', async ({ pag
   await page.locator('html[data-bootstrapped="true"]').waitFor();
   const media = page.locator('[data-example] video');
   await media.scrollIntoViewIfNeeded();
-  await expect(media).toHaveAttribute('src', '/samples/background.webm');
+  await expect(media).toHaveAttribute('src', 'samples/background.webm');
+  await expect(media).toHaveJSProperty('src', new URL('/samples/background.webm', page.url()).href);
   await expect(page.locator('[data-example] [data-playing]')).toHaveAttribute(
     'data-playing',
     'true',

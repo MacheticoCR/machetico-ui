@@ -1,5 +1,9 @@
 # Preparación y publicación npm
 
+## Versión disponible
+
+`machetico-ui@0.1.0` está publicado bajo la cuenta npm `owldev_23`, con `latest` apuntando a esa versión y el tag Git `v0.1.0`. Se verificó una instalación real desde el registro con peers estrictos, compilación AOT y SSR. Para consumidores: `npm install machetico-ui`. El despliegue de documentación en Pages no publica otra versión npm; una futura publicación requiere una versión nueva, sus validaciones y autorización.
+
 ## Artefacto publicable
 
 El workspace raíz es privado. El paquete publicable es la salida Angular Package Format de `projects/machetico-ui`, con entradas públicas `machetico-ui` y `machetico-ui/api`. No publique la raíz del workspace ni los archivos TypeScript originales.
