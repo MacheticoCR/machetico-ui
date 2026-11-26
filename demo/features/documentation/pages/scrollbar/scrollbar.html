@@ -1,0 +1,75 @@
+<nav aria-label="Ruta de documentación"><a routerLink="/services">Todos los servicios</a></nav>
+<machetico-page-heading
+	title="Scrollbar"
+	eyebrow="MACHETICO-UI · PÚBLICO"
+	description="Activa la apariencia de la barra nativa definida por su aplicación, como en Taurus, sin reemplazar el scroll del navegador."
+/>
+<machetico-panel title="Ejemplo interactivo"
+	><div class="reference-body" data-service-example="scrollbar">
+		<button type="button" macheticoButton (click)="enabled.set(!enabled())">
+			{{ enabled() ? 'Restaurar barra original' : 'Aplicar estilo de barra' }}
+		</button>
+		<p role="status">Estilo del consumidor: {{ enabled() ? 'activo' : 'inactivo' }}.</p>
+		<div
+			data-scroll-area
+			class="scrollbar-example"
+			tabindex="0"
+			role="region"
+			aria-label="Registros sintéticos con scroll"
+		>
+			@for (row of rows; track row) {
+				<p>
+					Fila {{ row }} · Información sintética para probar desplazamiento nativo y
+					teclado.
+				</p>
+			}
+		</div>
+	</div></machetico-panel
+>
+<machetico-panel title="Uso y contrato"
+	><div class="reference-body">
+		<p>
+			Importe Scrollbar desde machetico-ui e inyéctelo. acquire(element) agrega
+			data-machetico-scrollbar y devuelve una función de liberación idempotente. Las
+			adquisiciones superpuestas se cuentan; la última liberación restaura el marcador
+			original. DestroyRef libera cualquier adquisición pendiente al destruir el injector.
+		</p>
+		<pre
+			tabindex="0"
+			aria-label="Uso de Scrollbar"
+		><code [textContent]="examples.scrollbar"></code></pre>
+		<p>
+			Use afterRenderEffect para adquirir sobre un viewChild y registrar su liberación. Para
+			la barra de toda la página, el consumidor puede pasar DOCUMENT.documentElement después
+			del render.
+		</p>
+	</div></machetico-panel
+>
+<machetico-panel title="Tailwind e identidad visual"
+	><div class="reference-body">
+		<p>
+			En Taurus esta apariencia vive en scrollbars.css, no en un servicio. La biblioteca
+			comparte la activación y su limpieza; estos estilos equivalentes permanecen en el
+			consumidor. El servicio no instala CSS ni impone colores, ancho o forma.
+		</p>
+		<pre
+			tabindex="0"
+			aria-label="CSS de barras del consumidor"
+		><code [textContent]="examples.scrollbarStyles"></code></pre>
+		<p>
+			Los tokens scroll-thumb, scroll-track, secondary y primary permiten conservar la
+			identidad de cada aplicación. Los navegadores y sistemas operativos pueden preferir sus
+			propias barras o no mostrar el thumb hasta desplazarse.
+		</p>
+	</div></machetico-panel
+>
+<machetico-panel title="Accesibilidad y SSR/CSR"
+	><div class="reference-body">
+		<p>
+			Se conservan rueda, touch, teclado, selección de texto y controles nativos. Dé nombre y
+			tabindex a contenedores que necesiten desplazamiento con teclado. En forced-colors, los
+			estilos del consumidor restauran colores del sistema. SSR acquire es una operación sin
+			efecto; el marcador se activa después de hidratar y se libera al abandonar la vista.
+		</p>
+	</div></machetico-panel
+>

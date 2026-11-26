@@ -2,7 +2,7 @@ import { ChangeDetectionStrategy, Component, input } from '@angular/core';
 import { PageSkeleton } from '../page-skeleton/page-skeleton';
 
 /**
- * Reusable headless presentation component owned by Angular.
+ * Labelled section wrapper around the shared loading placeholder structure.
  *
  * @class SectionSkeleton
  */

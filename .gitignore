@@ -16,3 +16,4 @@ projects/machetico-ui/LICENSE
 *.pem
 *.key
 npm-debug.log*
+demo/catalog.generated.js

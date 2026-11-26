@@ -15,6 +15,32 @@ for (const file of files) {
   const text = readFileSync(file, 'utf8');
   const ast = ts.createSourceFile(file, text, ts.ScriptTarget.Latest, true);
   const edges = [];
+  function checkMetadataLayout(node) {
+    if (ts.isPropertyAssignment(node) && ['host', 'providers'].includes(node.name.getText(ast))) {
+      const value = node.initializer;
+      const objects = ts.isObjectLiteralExpression(value)
+        ? [value]
+        : ts.isArrayLiteralExpression(value)
+          ? value.elements.filter(ts.isObjectLiteralExpression)
+          : [];
+      for (const object of objects) {
+        if (!object.properties.length) continue;
+        const positions = [
+          object.getStart(ast),
+          ...object.properties.map((property) => property.getStart(ast)),
+          object.getEnd() - 1,
+        ];
+        const lines = positions.map((position) => ast.getLineAndCharacterOfPosition(position).line);
+        assert.ok(
+          lines.every((line, index) => index === 0 || line > lines[index - 1]),
+          `Multiline ${node.name.getText(ast)} metadata required: ${file}`,
+        );
+      }
+    }
+    ts.forEachChild(node, checkMetadataLayout);
+  }
+  checkMetadataLayout(ast);
+
   const contracts = ast.statements.filter(
     (node) => ts.isInterfaceDeclaration(node) || ts.isTypeAliasDeclaration(node),
   );

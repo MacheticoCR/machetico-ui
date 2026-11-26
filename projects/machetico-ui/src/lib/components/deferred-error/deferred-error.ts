@@ -2,7 +2,7 @@ import { ChangeDetectionStrategy, Component, input, output } from '@angular/core
 import { Button } from '../../directives/button/button.directive';
 
 /**
- * Reusable headless presentation component owned by Angular.
+ * Contextual failure message that emits retry intent to the resource-owning consumer.
  *
  * @class DeferredError
  * @functions `reload`

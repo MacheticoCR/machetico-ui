@@ -1,0 +1,14 @@
+<ol data-part="checklist" [attr.aria-label]="label()">
+	@for (item of items(); track item.id; let index = $index) {
+		<li
+			data-part="step"
+			[attr.aria-current]="item.current ? 'step' : null"
+			[attr.data-completed]="item.completed ? '' : null"
+		>
+			<h3>{{ index + 1 }}. {{ item.title }}</h3>
+			@for (detail of item.details; track $index) {
+				<p>{{ detail }}</p>
+			}
+		</li>
+	}
+</ol>

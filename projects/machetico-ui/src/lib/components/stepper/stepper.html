@@ -1,0 +1,25 @@
+<div ngTabs data-part="stepper">
+	<div
+		ngTabList
+		data-part="steps"
+		[attr.aria-label]="label()"
+		[(selectedTab)]="value"
+		selectionMode="explicit"
+		[wrap]="true"
+	>
+		@for (step of steps(); track step.id; let index = $index) {
+			<button ngTab type="button" [value]="step.id" [disabled]="step.disabled ?? false">
+				{{ index + 1 }}. {{ step.label }}
+			</button>
+		}
+	</div>
+	@for (step of steps(); track step.id) {
+		<section ngTabPanel [value]="step.id" data-part="step-panel">
+			<ng-template ngTabContent
+				><h3>{{ step.label }}</h3>
+				<p>{{ step.description }}</p></ng-template
+			>
+		</section>
+	}
+	<ng-content />
+</div>

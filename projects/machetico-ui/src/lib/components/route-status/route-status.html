@@ -1,0 +1,6 @@
+@if (busy()) {
+	<div data-part="status" role="status" aria-live="polite" aria-atomic="true">
+		<span data-part="spinner" aria-hidden="true"></span
+		><span data-part="label">{{ label() }}</span>
+	</div>
+}

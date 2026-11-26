@@ -1,0 +1,18 @@
+<article data-part="card" [attr.aria-busy]="busy()">
+	<h3>{{ title() }}</h3>
+	<p>{{ description() }}</p>
+	@if (status()) {
+		<p data-part="status" role="status">{{ status() }}</p>
+	}
+	<ng-content />
+	@if (actionLabel()) {
+		<button
+			type="button"
+			data-part="action"
+			[disabled]="busy() || disabled()"
+			(click)="activate()"
+		>
+			{{ actionLabel() }}
+		</button>
+	}
+</article>

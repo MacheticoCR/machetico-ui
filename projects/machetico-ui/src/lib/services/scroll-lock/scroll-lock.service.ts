@@ -1,8 +1,8 @@
-import { DOCUMENT } from '@angular/common';
-import { inject, Service } from '@angular/core';
+import { DOCUMENT, isPlatformBrowser } from '@angular/common';
+import { DestroyRef, inject, PLATFORM_ID, Service } from '@angular/core';
 
 /**
- * Reusable headless presentation component owned by Angular.
+ * Reference-counted browser document scroll leases; server acquisition is a no-op.
  *
  * @class ScrollLock
  * @functions `acquire`
@@ -15,6 +15,24 @@ import { inject, Service } from '@angular/core';
  */
 @Service()
 export class ScrollLock {
+  /**
+   * Prevents server renders from changing their document's scrolling styles.
+   * @property browser
+   */
+  private readonly browser = isPlatformBrowser(inject(PLATFORM_ID));
+
+  /**
+   * Restores owned browser styles if the environment is destroyed while a lease remains.
+   * @function constructor
+   */
+  public constructor() {
+    inject(DestroyRef).onDestroy(() => {
+      this.restore?.();
+      this.restore = undefined;
+      this.locks = 0;
+    });
+  }
+
   /**
    * Injected browser document, allowing tests without relying on a hidden global.
    *
@@ -46,6 +64,7 @@ export class ScrollLock {
    *
    */
   public acquire(): () => void {
+    if (!this.browser) return () => {};
     if (this.locks++ === 0) {
       const { documentElement: root, body, defaultView: view } = this.document;
       const x = view?.scrollX ?? 0;
@@ -89,6 +108,7 @@ export class ScrollLock {
     return (): void => {
       if (released) return;
       released = true;
+      if (this.locks === 0) return;
       if (--this.locks === 0) {
         this.restore?.();
         this.restore = undefined;

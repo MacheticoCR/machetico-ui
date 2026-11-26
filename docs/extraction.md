@@ -18,3 +18,29 @@ The initial library adapts reusable presentation patterns from Machetico's Tauru
 | Image upload                                   | Not extracted                                     | Upload service/backend ownership needs a separate adapter contract |
 
 The generic UI now has one independent home. Replacing duplicated implementations in existing consumers is subsequent work requiring their own migrations, regression gates and PRs. This inventory does not claim every application shared directory has already been migrated.
+
+## MacheTico landing frontend
+
+Reviewed the root Angular frontend (excluding its nested reference checkouts). It remains unchanged, including its pre-existing package-lock edit. These are reusable adaptations rather than a migration of application contracts.
+
+| Reference presentation                                                              | Library composition                                 | Application ownership retained                                               |
+| ----------------------------------------------------------------------------------- | --------------------------------------------------- | ---------------------------------------------------------------------------- |
+| BackgroundVideo, Reveal                                                             | BackgroundVideo, Reveal directive                   | Exact public media URLs, Tailwind motion and responsive identity             |
+| SiteHeader, SiteFooter, RouteStatus                                                 | SiteHeader, SiteFooter, RouteStatus                 | Router links, session/tenant configuration and navigation status             |
+| HeroSection                                                                         | HeroSection, projected decorative media and actions | Brand copy and illustration                                                  |
+| StatementSection, ExtrasTeaser                                                      | ContentSection                                      | Industry/module content and routes                                           |
+| ClosingSection, ContractButton                                                      | ContentSection, Button                              | Contract navigation and command execution                                    |
+| IndustryChapter                                                                     | FeatureChapter                                      | Industry contracts, images, links and feature copy                           |
+| BundleValue                                                                         | ComparisonList, ContentSection                      | Prices, currency and commercial calculations                                 |
+| MetricsList, InstallationMetrics                                                    | MetricsList                                         | API reads and response validation                                            |
+| LegalDocument                                                                       | LegalDocument                                       | Published versions, document text and actual print/export command            |
+| TermsConsent                                                                        | Consent                                             | Legal interpretation, accepted version persistence and payment authorization |
+| PlanStep, PreviewStep, PaymentStep                                                  | Stepper, FieldGroup, SummaryCard, Consent           | Validation, checkout state and ONVO integration                              |
+| ProvisioningChecklist                                                               | Checklist                                           | Server provisioning, credentials and operational completion                  |
+| SoftwareCard, InstallationService                                                   | SummaryCard, MetricsList                            | Launch URLs, subscriptions and service commands                              |
+| UserCreateForm, CompanyCreateForm, InstallationCreateForm                           | FieldGroup, Input, Checkbox, Select, FormActions    | Domain fields, validators and API commands                                   |
+| UsersTable, CompanyUsers, CompanyModules, InstallationModules, InstallationSettings | Table, Checkbox, Select, Input, FieldGroup          | Roles, policies, module contracts and authorization                          |
+| PanelShell                                                                          | Sidebar, SiteHeader, PageHeading                    | Lazy routes, guards and session ownership                                    |
+| TestCredentials                                                                     | Not copied                                          | Development account credentials remain application-owned                     |
+
+The demo provides local synthetic media (`demo/public/samples/background.webm`, reproducible with `node scripts/generate-demo-video.mjs`) and synthetic text. No customer records, secret configuration or backend code is extracted. There is no claim that the reference consumer now installs this library.
