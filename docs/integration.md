@@ -6,16 +6,16 @@ Decisión del responsable del 26 de noviembre de 2026. Landing, Taurus, Megaphon
 
 ## Instalación
 
-Antes de la primera publicación:
-
-```sh
-npm install /ruta/machetico-ui-0.1.0.tgz
-```
-
-Después de que el responsable publique la versión:
+La biblioteca completa está publicada en [npm](https://www.npmjs.com/package/machetico-ui) bajo la cuenta del responsable. Desde la raíz de Taurus, MacheTico landing, Folio o Megaphone:
 
 ```sh
 npm install machetico-ui
+```
+
+Para fijar la versión actual de forma explícita:
+
+```sh
+npm install machetico-ui@0.1.0
 ```
 
 Configure Localize en `projects.<app>.architect.build.options.polyfills` de angular.json para el navegador y el servidor:

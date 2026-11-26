@@ -14,6 +14,8 @@
     "demo": "npm run build && npm run docs:catalog && npm run demo:styles && node scripts/serve-demo.mjs",
     "test:e2e": "playwright test",
     "demo:styles": "tailwindcss -i demo/styles.source.css -o demo/styles.css --minify",
+    "demo:build": "npm run build && npm run docs:catalog && npm run demo:styles && node scripts/build-demo.mjs",
+    "test:pages": "playwright test --config playwright.pages.config.mjs",
     "architecture:check": "node scripts/check-architecture.mjs",
     "docs:check": "node scripts/check-tsdoc.mjs",
     "format:check": "prettier --check projects scripts tests e2e demo *.mjs *.json README.md AGENTS.md THIRD_PARTY_NOTICES.md docs .github",

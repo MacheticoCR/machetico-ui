@@ -2,6 +2,8 @@
 
 ## Approved decisions
 
+On 26 November 2026 the maintainer authorized hosting the documentation on GitHub Pages and redeploying it on every update to master. The existing demo gains a static Vite build with hash routing and a repository-relative base path; Pages serves CSR only. The local SSR/hydration harness and the partial-AOT library package remain separate. The documentation bundle deliberately includes Angular's JIT compiler for its existing JavaScript examples; it is not a consumer production application template. No backend, session data or npm publishing credential is deployed. A dedicated Pages workflow validates and deploys master, while PRs validate the static artifact without deployment. Package version and source revision identify the displayed documentation; deploying docs does not change or republish an npm version.
+
 On 26 November 2026 the maintainer approved an independent Angular library, machetico-ui, in the public Machetico organization. Taurus, Megaphone and Folio are reference implementations and future consumers. They remain unchanged.
 
 The latest instruction makes the package headless: it owns accessible structure, signals and interactions. Each application owns Tailwind, CSS, colors, fonts, spacing, shape, breakpoints and visual branding. There is no exported theme and no Tailwind runtime/peer dependency. The demo is a separate consumer; its abstract design references are illustrative and owned exclusively by the demo application.

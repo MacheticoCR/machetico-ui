@@ -4,9 +4,9 @@
  */
 export const componentExamples = {
   'site-header':
-    '<machetico-site-header label="Navegación de ejemplo" toggleLabel="Mostrar navegación"><a headerBrand href="/components">Marca de ejemplo</a><a headerLinks href="/components/slider">Slider</a><a headerActions href="/services">Servicios</a></machetico-site-header>',
+    '<machetico-site-header label="Navegación de ejemplo" toggleLabel="Mostrar navegación"><a headerBrand routerLink="/components">Marca de ejemplo</a><a headerLinks routerLink="/components/slider">Slider</a><a headerActions routerLink="/services">Servicios</a></machetico-site-header>',
   'background-video':
-    '<machetico-background-video src="/samples/background.webm" [poster]="poster" /><p>Video decorativo local: con movimiento reducido se mantiene el poster.</p>',
+    '<machetico-background-video src="samples/background.webm" [poster]="poster" /><p>Video decorativo local: con movimiento reducido se mantiene el poster.</p>',
   alert:
     '<machetico-alert variant="info">Información de ejemplo.</machetico-alert><machetico-alert variant="success">Cambios sintéticos guardados.</machetico-alert><machetico-alert variant="error">Ejemplo de un error recuperable.</machetico-alert>',
   checkbox:
@@ -53,7 +53,7 @@ export const componentExamples = {
     '<machetico-choice-list label="Estado de tabla" [options]="tableOptions" [(value)]="tableState" /><machetico-table caption="Datos sintéticos" [rows]="tableState() === \'empty\' ? [] : rows()" [columns]="columns" [rowKey]="key" [sort]="sort()" [loading]="tableState() === \'loading\'" [error]="tableState() === \'error\' ? \'Error sintético de lectura.\' : \'\'" (sortChanged)="sort.set($event)" (retryRequested)="tableState.set(\'ready\')" />',
   'route-status': '<machetico-route-status label="Cargando la vista de ejemplo" />',
   'site-footer':
-    '<machetico-site-footer copyright="© Machetico · Ejemplo"><a footerLinks href="/components">Componentes</a></machetico-site-footer>',
+    '<machetico-site-footer copyright="© Machetico · Ejemplo"><a footerLinks routerLink="/components">Componentes</a></machetico-site-footer>',
   'field-group':
     '<machetico-field-group legend="Preferencias de ejemplo" description="Campos nativos agrupados."><machetico-checkbox label="Recibir resumen" [ngModel]="agreed()" (ngModelChange)="agreed.set($event)" /></machetico-field-group>',
   'metrics-list':
@@ -67,13 +67,13 @@ export const componentExamples = {
   'legal-document':
     '<machetico-legal-document title="Documento de ejemplo" version="Borrador 1" updatedAt="26 de noviembre de 2026" notice="Texto sintético, sin validez institucional." [sections]="[{id: \'intro\', title: \'Introducción\', paragraphs: [\'Texto de demostración aportado por la aplicación.\']}]" (printRequested)="emptyAction.set(emptyAction() + 1)" /><p role="status">Solicitudes de impresión: {{ emptyAction() }}</p>',
   consent:
-    '<machetico-consent label="He leído las condiciones de ejemplo" [(accepted)]="agreed"><a href="/components/legal-document">Ver documento sintético</a></machetico-consent><p>Aceptado: {{ agreed() ? "Sí" : "No" }}</p>',
+    '<machetico-consent label="He leído las condiciones de ejemplo" [(accepted)]="agreed"><a routerLink="/components/legal-document">Ver documento sintético</a></machetico-consent><p>Aceptado: {{ agreed() ? "Sí" : "No" }}</p>',
   'content-section':
     '<machetico-content-section title="Contenido de ejemplo" eyebrow="SECCIÓN" description="Composición provista por el consumidor."><p>Podés proyectar contenido accesible y cualquier componente de la biblioteca.</p></machetico-content-section>',
   'feature-chapter':
-    '<machetico-feature-chapter title="Una función de ejemplo" description="Texto y medios provistos por el consumidor." [features]="[\'Comportamiento reutilizable\', \'Identidad propia\']"><span featureMedia aria-label="Ilustración sintética">◇</span><a featureActions href="/components">Ver catálogo</a></machetico-feature-chapter>',
+    '<machetico-feature-chapter title="Una función de ejemplo" description="Texto y medios provistos por el consumidor." [features]="[\'Comportamiento reutilizable\', \'Identidad propia\']"><span featureMedia aria-label="Ilustración sintética">◇</span><a featureActions routerLink="/components">Ver catálogo</a></machetico-feature-chapter>',
   'hero-section':
-    '<machetico-hero-section title="Tu identidad, comportamiento compartido" eyebrow="EJEMPLO" description="Una portada compuesta con contenido sintético."><span heroMedia>◇</span><a heroActions href="/components">Explorar componentes</a></machetico-hero-section>',
+    '<machetico-hero-section title="Tu identidad, comportamiento compartido" eyebrow="EJEMPLO" description="Una portada compuesta con contenido sintético."><span heroMedia>◇</span><a heroActions routerLink="/components">Explorar componentes</a></machetico-hero-section>',
   stepper:
     "<machetico-stepper label=\"Pasos de ejemplo\" [steps]=\"[{id: 'one', label: 'Configurar', description: 'Instalar la biblioteca'}, {id: 'two', label: 'Personalizar', description: 'Definir la identidad visual'}]\" />",
 };

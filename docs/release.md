@@ -1,5 +1,9 @@
 # Preparación y publicación npm
 
+## Versión disponible
+
+`machetico-ui@0.1.0` está publicado bajo la cuenta npm `owldev_23`, con `latest` apuntando a esa versión y el tag Git `v0.1.0`. Se verificó una instalación real desde el registro con peers estrictos, compilación AOT y SSR. Para consumidores: `npm install machetico-ui`. El despliegue de documentación en Pages no publica otra versión npm; una futura publicación requiere una versión nueva, sus validaciones y autorización.
+
 ## Artefacto publicable
 
 El workspace raíz es privado. El paquete publicable es la salida Angular Package Format de `projects/machetico-ui`, con entradas públicas `machetico-ui` y `machetico-ui/api`. No publique la raíz del workspace ni los archivos TypeScript originales.
@@ -10,6 +14,8 @@ npm run release:check
 ```
 
 El gate ejecuta formato, arquitectura, TSDoc, tipos estrictos, compilación, regresiones unitarias/SSR/navegador, audit, empaquetado, inspección de contenidos, instalación real en consumidor AOT/SSR y `npm publish --dry-run`. No publica al registro. El tarball queda en `artifacts/machetico-ui-<version>.tgz`. Compruebe que la versión de `projects/machetico-ui/package.json` es la deseada antes de construir.
+
+Después de una publicación, CI debe poder validar cambios de documentación sin intentar reutilizar la versión en npm. El script de simulación consulta primero la versión exacta: si ya existe, añade `--force` únicamente junto al `--dry-run` obligatorio para evitar el rechazo de inmutabilidad de npm durante la simulación. No se ignoran errores de red/autenticación ni se omiten inspección o pruebas del paquete. La publicación real nunca usa ese flag y exige una versión nueva.
 
 El paquete conserva MIT/autoría MacheTico, licencia de Lucide, tipos y exports APF. No contiene CSS/temas, aplicaciones consumidoras, secretos ni dependencias runtime de Tailwind, Router o Lucide. Angular/ARIA son peers y tslib es su única dependencia propia.
 
