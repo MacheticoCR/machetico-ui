@@ -15,9 +15,17 @@ Free-to-use headless Angular components and interaction primitives developed by 
 
 The package ships **no theme, CSS or Tailwind utilities**. Taurus, Megaphone and Folio decide appearance. Domain models, endpoints, sessions and permissions remain in each application.
 
-## Build and install locally
+## Install
 
 Requires Node >=24.15.0, Angular >=22.2.6 <23 (including Localize) and Angular ARIA 22.2.6 in the consuming application.
+
+```sh
+npm install machetico-ui
+```
+
+The full library is published as `machetico-ui@0.1.0`. Both `machetico-ui` and `machetico-ui/api` come from this single package. For an exact version use `npm install machetico-ui@0.1.0`.
+
+## Build and install locally
 
 ```sh
 npm ci --ignore-scripts
@@ -82,6 +90,8 @@ Use native ARIA/data state selectors and `data-part` hooks to style internals. A
 
 ## Playground and tests
 
+Public documentation: [macheticocr.github.io/machetico-ui](https://macheticocr.github.io/machetico-ui/). The Pages workflow rebuilds the demo from source on every update to `master`; its header shows the package version and source revision. Static hosting uses CSR and hash routes so individual views survive refreshes. See [deployment](docs/deployment.md).
+
 ```sh
 npm run demo
 npm test
@@ -122,4 +132,4 @@ This is the intended consumption model: import library components for accessible
 
 ## Publication readiness
 
-Run `npm run release:check` to verify, build and inspect the package, perform a real isolated `npm install` with strict peers, compile an AOT/SSR consumer and simulate publishing. The command never publishes. See [release instructions](docs/release.md) and [frontend adoption](docs/integration.md). Registry installation uses `npm install machetico-ui` after the maintainer publishes; until then install the validated tarball.
+Run `npm run release:check` to verify, build and inspect the package, perform a real isolated `npm install` with strict peers, compile an AOT/SSR consumer and simulate publishing. The command never publishes. See [release instructions](docs/release.md) and [frontend adoption](docs/integration.md). Version 0.1.0 is published on npm; install it with `npm install machetico-ui`. Documentation deployment does not automatically increment or republish npm versions.

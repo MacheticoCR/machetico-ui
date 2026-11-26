@@ -13,7 +13,7 @@ export const usageExamples = Object.freeze({
   revealStyles:
     "/* Consumer GLOBAL stylesheet; visual movement stays application-owned. */\n@layer components {\n  [data-reveal='pending'] { opacity: 0; transform: translateY(14px); }\n  [data-reveal='visible'], [data-reveal]:focus-within {\n    opacity: 1;\n    transform: none;\n  }\n  @media (prefers-reduced-motion: reduce), print {\n    [data-reveal] { opacity: 1; transform: none; transition: none; }\n  }\n}",
   install:
-    '# En el repositorio machetico-ui (Node 24.15+)\nnpm ci --ignore-scripts\nnpm run pack\n\n# En tu aplicación Angular 22.2.6+ y ARIA 22.2.6\nnpm install /ruta/machetico-ui/artifacts/machetico-ui-0.1.0.tgz',
+    '# En tu aplicación (Node 24.15+, Angular 22.2.6+ y ARIA 22.2.6)\nnpm install machetico-ui\n\n# Para fijar la versión publicada actual\nnpm install machetico-ui@0.1.0',
   standalone:
     "import { ChangeDetectionStrategy, Component, signal } from '@angular/core';\nimport { Button, Select, Slider, Sidebar, Dialog, Table, Card } from 'machetico-ui';\n\n@Component({\n  selector: 'app-example',\n  imports: [Button, Select, Slider, Sidebar, Dialog, Table, Card],\n  templateUrl: './example.html',\n  changeDetection: ChangeDetectionStrategy.OnPush,\n})\nexport class Example {\n  public readonly saving = signal(false);\n  public readonly selected = signal('first');\n  public readonly volume = signal(30);\n  public readonly navigationOpen = signal(false);\n  public readonly dialogOpen = signal(false);\n  public readonly options = [\n    { value: 'first', label: 'Primera opción' },\n    { value: 'second', label: 'Segunda opción' },\n  ];\n}",
   buttons:
