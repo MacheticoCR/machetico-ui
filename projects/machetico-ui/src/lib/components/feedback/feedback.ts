@@ -2,7 +2,7 @@ import { ChangeDetectionStrategy, Component, input } from '@angular/core';
 import { Alert } from '../alert/alert';
 
 /**
- * Reusable headless presentation component owned by Angular.
+ * Accessible error and confirmation messages supplied by the operation-owning consumer.
  *
  * @class Feedback
  */

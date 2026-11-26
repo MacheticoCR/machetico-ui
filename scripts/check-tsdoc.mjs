@@ -42,7 +42,7 @@ async function inspect(directory) {
       continue;
     }
 
-    if (!name.endsWith('.ts') || /\.(spec|test|d)\.ts$/.test(name)) continue;
+    if (!/\.(ts|js)$/.test(name) || /\.(spec|test|d)\.ts$/.test(name)) continue;
 
     await inspectFile(name);
   }

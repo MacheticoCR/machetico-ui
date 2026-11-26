@@ -1,0 +1,46 @@
+<nav aria-label="Ruta de documentación"><a routerLink="/services">Todos los servicios</a></nav>
+<machetico-page-heading
+	title="ScrollLock"
+	eyebrow="INTERNO · CONSUMIR DIALOG Y SIDEBAR"
+	description="Coordina bloqueo y restauración de scroll entre los modales de la misma aplicación."
+/>
+<machetico-alert variant="info"
+	>ScrollLock no se exporta desde machetico-ui. Use los componentes públicos; no agregue otro
+	bloqueo manual sobre el mismo modal.</machetico-alert
+>
+<machetico-panel title="Ejemplo mediante Dialog"
+	><div class="reference-body" data-service-example="scroll-lock">
+		<button type="button" macheticoButton (click)="open.set(true)">Probar bloqueo modal</button>
+		@if (open()) {
+			<machetico-dialog title="Scroll coordinado" (closed)="open.set(false)"
+				><p>
+					El documento queda bloqueado hasta cerrar el modal. Escape restaura scroll y
+					foco.
+				</p></machetico-dialog
+			>
+		}
+	</div></machetico-panel
+>
+<machetico-panel title="Responsabilidad y liberación"
+	><div class="reference-body">
+		<p>
+			Internamente acquire() entrega una liberación idempotente. Las adquisiciones se cuentan:
+			solo el primer propietario bloquea el documento y solo la última liberación restaura
+			estilos y posición originales. DestroyRef también restaura el documento si se destruye
+			el entorno con un modal abierto.
+		</p>
+		<p>
+			No altera la identidad de la barra ni observa el viewport. Esas responsabilidades
+			pertenecen a <a routerLink="/services/scrollbar">Scrollbar</a> y
+			<a routerLink="/services/scroll-reveal">ScrollReveal</a>.
+		</p>
+		<h2>SSR y CSR</h2>
+		<p>
+			En SSR adquirir el bloqueo no modifica body ni documentElement. Después de hidratar,
+			Dialog activa su modalidad nativa y adquiere el bloqueo en el navegador. Revise
+			<a routerLink="/components/dialog">Dialog</a> y
+			<a routerLink="/components/sidebar">Sidebar</a> para el contrato público y estilos del
+			consumidor.
+		</p>
+	</div></machetico-panel
+>

@@ -1,0 +1,7 @@
+<fieldset data-part="fieldset" [disabled]="disabled()">
+	<legend data-part="legend">{{ legend() }}</legend>
+	@if (description()) {
+		<p data-part="description">{{ description() }}</p>
+	}
+	<ng-content />
+</fieldset>

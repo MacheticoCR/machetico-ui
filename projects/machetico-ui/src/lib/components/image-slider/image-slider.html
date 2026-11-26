@@ -1,11 +1,11 @@
 <section
-	data-part="region"
 	role="region"
 	aria-roledescription="carrusel"
 	[attr.aria-label]="label()"
-	(mouseenter)="hovered.set(true)"
-	(mouseleave)="hovered.set(false)"
-	(focusin)="paused.set(true)"
+	data-part="region"
+	(mouseenter)="hover(true)"
+	(mouseleave)="hover(false)"
+	(focusin)="focusEntered($event)"
 >
 	@if (active(); as slide) {
 		<figure
@@ -13,22 +13,82 @@
 			[attr.aria-live]="paused() ? 'polite' : 'off'"
 			aria-atomic="true"
 		>
-			@if (failed().has(slide.id)) {
-				<p role="alert" data-part="error">No se pudo cargar la imagen.</p>
-				<button type="button" data-part="retry" (click)="retry(slide.id)">
-					Reintentar
-				</button>
-			} @else {
-				<img
-					data-part="image"
-					[src]="slide.src"
-					[attr.srcset]="slide.srcset || null"
-					[alt]="slide.alt"
-					(error)="imageFailed(slide.id)"
-				/>
-			}
+			<div
+				data-part="viewport"
+				style="overflow: hidden"
+				[style.aspect-ratio]="imageWidth() + ' / ' + imageHeight()"
+			>
+				<div
+					data-part="track"
+					style="display: flex; height: 100%; width: 100%"
+					[attr.data-snapping]="snapping() || reducedMotion() ? '' : null"
+					[style.transform]="'translate3d(-' + position() * 100 + '%, 0, 0)'"
+					(transitionend)="settle()"
+				>
+					@for (panel of panels(); track panel.key; let i = $index) {
+						<div
+							data-part="slide"
+							style="position: relative; flex: 0 0 100%; min-width: 0"
+							role="group"
+							aria-roledescription="diapositiva"
+							[attr.aria-label]="panel.caption"
+							[attr.aria-hidden]="i !== position()"
+							[attr.inert]="i !== position() ? '' : null"
+							[attr.data-active]="i === position()"
+							[attr.aria-busy]="!loaded().has(panel.id) && !failed().has(panel.id)"
+						>
+							@if (failed().has(panel.id)) {
+								<div data-part="error">
+									<p [attr.role]="i === position() ? 'alert' : null">
+										No se pudo cargar esta imagen.
+									</p>
+									<button
+										type="button"
+										data-part="retry"
+										(click)="retry(panel.id)"
+									>
+										Reintentar
+									</button>
+								</div>
+							} @else {
+								@if (!loaded().has(panel.id)) {
+									<div
+										data-part="loading"
+										[attr.role]="i === position() ? 'status' : null"
+										aria-label="Cargando imagen"
+									>
+										<span aria-hidden="true"></span>
+									</div>
+								}
+								@if (
+									(i >= position() - 1 && i <= position() + 1) ||
+									loaded().has(panel.id)
+								) {
+									<img
+										#imageElement
+										[attr.data-slide-id]="panel.id"
+										data-part="image"
+										[src]="panel.src"
+										[attr.srcset]="panel.srcset || null"
+										[sizes]="sizes()"
+										[alt]="panel.alt"
+										[width]="imageWidth()"
+										[height]="imageHeight()"
+										[attr.fetchpriority]="
+											priority() && i === position() ? 'high' : 'low'
+										"
+										decoding="async"
+										(load)="imageLoaded(panel.id)"
+										(error)="imageFailed(panel.id)"
+									/>
+								}
+							}
+						</div>
+					}
+				</div>
+			</div>
 			<figcaption data-part="caption">
-				{{ slide.caption }} · {{ activeIndex() + 1 }} / {{ slides().length }}
+				{{ slide.caption }} · {{ activeIndex() + 1 }} de {{ slides().length }}
 			</figcaption>
 		</figure>
 		@if (slides().length > 1) {
@@ -39,17 +99,17 @@
 					aria-label="Imagen anterior"
 					(click)="select(activeIndex() - 1)"
 				>
-					Anterior
+					<machetico-icon name="arrow-left" />
 				</button>
-				@for (slide of slides(); track slide.id; let i = $index) {
+				@for (item of slides(); track item.id; let i = $index) {
 					<button
 						type="button"
 						data-part="indicator"
-						[attr.aria-label]="'Ver ' + slide.caption"
+						[attr.aria-label]="'Ver ' + item.caption"
 						[attr.aria-current]="i === activeIndex() ? 'true' : null"
 						(click)="select(i)"
 					>
-						{{ i + 1 }}
+						<span aria-hidden="true"></span>
 					</button>
 				}
 				<button
@@ -58,7 +118,16 @@
 					aria-label="Imagen siguiente"
 					(click)="select(activeIndex() + 1)"
 				>
-					Siguiente
+					<machetico-icon name="arrow-left" />
+				</button>
+				<button
+					type="button"
+					data-part="rotation"
+					data-rotation
+					[attr.aria-label]="paused() ? 'Reanudar imágenes' : 'Pausar imágenes'"
+					(click)="toggle()"
+				>
+					<machetico-icon [name]="paused() ? 'play' : 'pause'" />
 				</button>
 			</div>
 		}

@@ -2,7 +2,7 @@ import { Toolbar, ToolbarWidget } from '@angular/aria/toolbar';
 import { ChangeDetectionStrategy, Component, computed, input, output } from '@angular/core';
 
 /**
- * Reusable headless presentation component owned by Angular.
+ * Angular ARIA toolbar that emits one-based page selection without owning result reads.
  *
  * @class Pagination
  */

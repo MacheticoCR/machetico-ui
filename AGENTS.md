@@ -26,9 +26,11 @@ Distinguish policy, verified implementation and proposals. Never invent framewor
 - Every named interface or type alias lives in its own interfaces/ file and is exported through the direct type-only barrel. Keep TypeScript strict; no any, unsafe assertions, suppression comments or ignored failures.
 - Components register effect/afterRenderEffect only in constructors. Other initialization uses ngOnInit; view work uses ngAfterViewInit; cleanup uses ngOnDestroy. Effects are not substitutes for derived state or explicit commands.
 - Declare member visibility and method return types explicitly. Keep imports, declarations, methods and logical steps visibly separated. Use the checked-in Taurus Prettier configuration.
+- Keep nonempty Angular metadata host objects and provider objects multiline, with one property per line. Keep providers arrays multiline. Prettier objectWrap preserves this layout; empty host objects may stay compact.
 - No RxJS imports, Observable/Subject state, operators, interop imports or Observable subscriptions, including tests. Angular output intent testing is allowed.
 - Presentation receives signal inputs/models and emits immutable intents. It never owns HTTP, authorization or domain persistence.
 - All application reads use httpResource. The optional API client uses Angular HTTP, provideHttpClient(), and a single immutable resource per explicit command with cleanup. A command cannot reload or retry. No completed private-response cache, hidden credential storage, automatic cookie forwarding or server-rendered mutations. SSR transfer is disabled by default. Response parsers receive unknown and validate at runtime.
+- The documentation demo is an Angular Router SPA with lazy /components, /services and /directives pages. Use machetico-ui primitives to document the library. Keep executable synthetic examples for all concrete public controls and directives, and generate their API tables from source. Verify SSR deep links, hydration DOM reuse and CSR; never activate gallery timers, visibility listeners or modal DOM APIs on the server.
 - No CSS theme, visual utility classes or Tailwind dependency in the distributed library. Accept caller-provided classes and expose semantic data attributes/parts. Focus/scroll/visibility changes needed for behavior are allowed. Tailwind belongs to demo/ and consumer applications. Keep reduced motion, keyboard, contrast under each consumer identity, mobile layout and loading/error/empty states verifiable.
 - UI text and accessible labels belong to the consuming application. Preserve native Angular i18n markers and expose configurable labels for cross-application use. Never translate user-authored business content or change currency.
 
@@ -46,6 +48,7 @@ npm run docs:check
 npm run typecheck
 npm run build
 npm test
+npm run ssr:test
 npm run demo:styles
 npm run test:e2e
 npm audit

@@ -1,0 +1,60 @@
+<nav aria-label="Documentación de la biblioteca">
+	<a
+		routerLink="/"
+		routerLinkActive="active"
+		[routerLinkActiveOptions]="{ exact: true }"
+		ariaCurrentWhenActive="page"
+		class="category-link"
+		(click)="selected.emit()"
+		>Inicio</a
+	>
+	<div ngAccordionGroup [multiExpandable]="false" [wrap]="true">
+		@for (group of groups; track group.id) {
+			<section class="docs-nav-group" [attr.data-category]="group.id">
+				<h2>
+					<button
+						type="button"
+						ngAccordionTrigger
+						[panel]="panel"
+						[id]="idPrefix + '-' + group.id + '-trigger'"
+						[expanded]="expandedCategory() === group.id"
+						(expandedChange)="setExpanded(group.id, $event)"
+						class="category-link"
+					>
+						<span>{{ group.label }}</span
+						><span class="nav-count" aria-hidden="true">{{ group.items.length }}</span
+						><machetico-icon name="arrow-left" />
+					</button>
+				</h2>
+				<div
+					ngAccordionPanel
+					#panel="ngAccordionPanel"
+					[id]="idPrefix + '-' + group.id + '-panel'"
+					[hidden]="!panel.visible()"
+				>
+					<ng-template ngAccordionContent
+						><div class="docs-index">
+							<a
+								[routerLink]="['/', group.id]"
+								routerLinkActive="active"
+								[routerLinkActiveOptions]="{ exact: true }"
+								ariaCurrentWhenActive="page"
+								(click)="selected.emit()"
+								>{{ group.overview }}</a
+							>
+							@for (item of group.items; track item.id) {
+								<a
+									[routerLink]="['/', group.id, item.id]"
+									routerLinkActive="active"
+									ariaCurrentWhenActive="page"
+									(click)="selected.emit()"
+									>{{ item.name }}</a
+								>
+							}
+						</div></ng-template
+					>
+				</div>
+			</section>
+		}
+	</div>
+</nav>

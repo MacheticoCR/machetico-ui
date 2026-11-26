@@ -9,6 +9,8 @@ import {
   Select,
   ImageSlider,
   Alert,
+  Consent,
+  SummaryCard,
 } from '../dist/machetico-ui/fesm2022/machetico-ui.mjs';
 const render = (type, inputs = {}) => {
   const f = TestBed.createComponent(type);
@@ -95,7 +97,7 @@ describe('headless packaged interactions', () => {
     f.detectChanges();
     expect(f.componentInstance.activeIndex()).toBe(1);
     expect(f.componentInstance.paused()).toBe(true);
-    expect(f.nativeElement.querySelector('img').alt).toBe('B');
+    expect(f.nativeElement.querySelector('[data-active="true"] img').alt).toBe('B');
   });
   it('announces errors assertively and informational messages politely', () => {
     const f = render(Alert, { variant: 'error' });
@@ -103,5 +105,33 @@ describe('headless packaged interactions', () => {
     f.componentRef.setInput('variant', 'info');
     f.detectChanges();
     expect(f.nativeElement.getAttribute('role')).toBe('status');
+  });
+  it('keeps explicit consent unchecked and blocks disabled changes', () => {
+    const f = render(Consent, { label: 'Example conditions' });
+    const checkbox = f.nativeElement.querySelector('input');
+    expect(checkbox.checked).toBe(false);
+    checkbox.checked = true;
+    checkbox.dispatchEvent(new Event('change'));
+    expect(f.componentInstance.accepted()).toBe(true);
+    f.componentRef.setInput('disabled', true);
+    f.detectChanges();
+    checkbox.checked = false;
+    checkbox.dispatchEvent(new Event('change'));
+    expect(f.componentInstance.accepted()).toBe(true);
+  });
+  it('emits one summary action and suppresses pending or disabled activation', () => {
+    const f = render(SummaryCard, { title: 'Synthetic record', actionLabel: 'Open' });
+    const actions = [];
+    f.componentInstance.activated.subscribe(() => actions.push('open'));
+    f.nativeElement.querySelector('button').click();
+    expect(actions).toEqual(['open']);
+    f.componentRef.setInput('busy', true);
+    f.detectChanges();
+    f.componentInstance.activate();
+    f.componentRef.setInput('busy', false);
+    f.componentRef.setInput('disabled', true);
+    f.detectChanges();
+    f.componentInstance.activate();
+    expect(actions).toEqual(['open']);
   });
 });

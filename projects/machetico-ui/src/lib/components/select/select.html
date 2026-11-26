@@ -1,6 +1,7 @@
 <button
 	data-part="button"
 	type="button"
+	#trigger
 	ngCombobox
 	#combobox="ngCombobox"
 	[(expanded)]="expanded"
@@ -12,6 +13,8 @@
 <ng-template data-part="ng-template" ngComboboxPopup [combobox]="combobox">
 	<div
 		data-part="div"
+		#popupElement
+		popover="manual"
 		ngComboboxWidget
 		ngListbox
 		#listbox="ngListbox"

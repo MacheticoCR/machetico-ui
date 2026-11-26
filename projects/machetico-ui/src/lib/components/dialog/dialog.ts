@@ -15,7 +15,7 @@ import { ScrollLock, ViewIds } from '../../services';
 import { Icon } from '../icon/icon';
 
 /**
- * Reusable headless presentation component owned by Angular.
+ * Native modal with accessible naming, focus restoration and browser-owned scroll coordination.
  *
  * @class Dialog
  * @functions `ngAfterViewInit`, `ngOnDestroy`, `handleClosed`, `close`, `cancel`, `backdrop`

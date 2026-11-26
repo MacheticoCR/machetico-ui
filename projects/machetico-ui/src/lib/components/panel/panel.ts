@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, input } from '@angular/core';
 
 /**
- * Reusable headless presentation component owned by Angular.
+ * Content container with an optional heading and a projected consumer action slot.
  *
  * @class Panel
  */

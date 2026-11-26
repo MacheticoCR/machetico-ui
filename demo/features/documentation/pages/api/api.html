@@ -1,0 +1,80 @@
+<nav aria-label="Ruta de documentación"><a routerLink="/services">Todos los servicios</a></nav>
+<machetico-page-heading
+	title="Api"
+	eyebrow="MACHETICO-UI/API · PÚBLICO"
+	description="Transporte genérico: lecturas reactivas y comandos explícitos. Endpoints, sesión y permisos pertenecen a su aplicación."
+/>
+<machetico-panel title="Instalación y configuración"
+	><div class="reference-body">
+		<p>
+			Node 24.15+ y Angular 22.2.6+ (con ARIA 22.2.6). Instale el tarball; no hay publicación
+			npm todavía.
+		</p>
+		<pre
+			tabindex="0"
+			aria-label="Comandos de instalación"
+		><code [textContent]="examples.install"></code></pre>
+		<pre
+			tabindex="0"
+			aria-label="Configuración del cliente API"
+		><code [textContent]="examples.apiSetup"></code></pre></div
+></machetico-panel>
+<machetico-panel title="Contrato de Api"
+	><div class="reference-body">
+		<machetico-table
+			caption="Contrato del cliente API"
+			[rows]="methods"
+			[columns]="columns"
+			[rowKey]="key"
+		/>
+		<p>
+			Configure provideHttpClient y sus interceptores en el consumidor. La página enrutada
+			posee recursos, errores y recargas. Los hijos reciben datos y emiten intenciones.
+		</p>
+	</div></machetico-panel
+>
+<machetico-panel title="Ejemplos de uso"
+	><div class="reference-body">
+		<machetico-alert variant="info"
+			>Los endpoints /examples/count son ilustrativos y no se ejecutan en este
+			demo.</machetico-alert
+		>
+		<details>
+			<summary>Validar una respuesta unknown</summary>
+			<pre
+				tabindex="0"
+				aria-label="Validador de respuesta"
+			><code [textContent]="examples.parse"></code></pre>
+		</details>
+		<details>
+			<summary>Lecturas reactivas y estados de recuperación</summary>
+			<pre
+				tabindex="0"
+				aria-label="Lectura reactiva"
+			><code [textContent]="examples.apiRead"></code></pre>
+		</details>
+		<details>
+			<summary>Comandos explícitos sin reintentos automáticos</summary>
+			<pre
+				tabindex="0"
+				aria-label="Comando API"
+			><code [textContent]="examples.apiCommand"></code></pre>
+		</details>
+		<p>
+			Un path undefined cancela una lectura. request acepta AbortSignal; destruir el injector
+			cancela comandos pendientes. ApiError conserva status y cuerpo del fallo HTTP; errores
+			de parser, red y cancelación se propagan al propietario.
+		</p>
+	</div></machetico-panel
+>
+<machetico-panel title="SSR y seguridad"
+	><div class="reference-body">
+		<p>
+			Las lecturas no transfieren respuestas al HTML. La aplicación debe decidir qué lecturas
+			permite en SSR: transferCache false no evita por sí mismo que se envíe una solicitud de
+			lectura. Los comandos se rechazan en el servidor antes de crear HTTP. No hay
+			almacenamiento de credenciales, autorización de negocio ni caché de respuestas privadas
+			completadas.
+		</p>
+	</div></machetico-panel
+>

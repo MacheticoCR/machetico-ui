@@ -9,7 +9,7 @@ import {
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 
 /**
- * Reusable headless presentation component owned by Angular.
+ * Native boolean form control that propagates edits, touched state and disabled state to Angular Forms.
  *
  * @class Checkbox
  * @functions `writeValue` , `registerOnChange` , `registerOnTouched` , `setDisabledState` ,
@@ -18,9 +18,18 @@ import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 @Component({
   selector: 'machetico-checkbox',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  host: { '[attr.name]': 'null', '[attr.id]': 'null' },
+  host: {
+    '[attr.name]': 'null',
+    '[attr.id]': 'null',
+  },
   templateUrl: './checkbox.html',
-  providers: [{ provide: NG_VALUE_ACCESSOR, useExisting: forwardRef(() => Checkbox), multi: true }],
+  providers: [
+    {
+      provide: NG_VALUE_ACCESSOR,
+      useExisting: forwardRef(() => Checkbox),
+      multi: true,
+    },
+  ],
 })
 export class Checkbox implements ControlValueAccessor {
   /**
@@ -151,7 +160,8 @@ export class Checkbox implements ControlValueAccessor {
    *
    */
   public changed(event: Event): void {
-    if (!(event.target instanceof HTMLInputElement)) return;
+    if (typeof HTMLInputElement === 'undefined' || !(event.target instanceof HTMLInputElement))
+      return;
     this.checked.set(event.target.checked);
     this.onChange(event.target.checked);
   }

@@ -1,0 +1,156 @@
+<div class="docs-home">
+	<machetico-hero-section
+		title="Machetico UI"
+		eyebrow="DESARROLLADA POR MACHETICO · HECHA EN COSTA RICA"
+		description="Comportamiento compartido. Identidad propia."
+	>
+		<div heroActions class="sample-actions">
+			<a routerLink="/components" macheticoButton>Explorar componentes</a
+			><a routerLink="/services/api" macheticoButton="secondary">Cómo instalarla</a>
+		</div>
+	</machetico-hero-section>
+	<machetico-alert variant="success"
+		><strong>De libre uso, desarrollada por MacheTico.</strong> Puede utilizarla en sus
+		proyectos personales y comerciales, modificarla y redistribuirla bajo la licencia MIT,
+		conservando el aviso de autoría y de licencia.
+		<a href="/license">Leer la licencia completa</a>.</machetico-alert
+	>
+	<machetico-panel
+		title="Una biblioteca de comportamiento. Distintas formas de vestirla."
+		class="design-playground"
+	>
+		<div class="reference-body">
+			<p>
+				<strong>Así se usa machetico-ui:</strong> importe sus componentes y comportamientos;
+				defina su identidad en el Tailwind/CSS global de su aplicación. La biblioteca aporta
+				estructura accesible, estados y eventos. Su aplicación decide colores, tipografía,
+				bordes, superficies y movimiento.
+			</p>
+			<p>
+				Cambie el <strong>Estilo de diseño</strong> desde el select del encabezado. El
+				cambio se aplica a toda la documentación.
+			</p>
+			<ul class="design-options" aria-label="Estilos de diseño disponibles">
+				@for (design of designs; track design.value) {
+					<li [attr.data-active]="appearance() === design.value">
+						<strong>{{ design.label }}</strong
+						><small>{{ design.description }}</small>
+					</li>
+				}
+			</ul>
+			<div class="design-sample" macheticoCard>
+				<div>
+					<p class="sample-eyebrow">MISMO COMPONENTE, MISMO COMPORTAMIENTO</p>
+					<h3>El diseño cambia. Su estado se conserva.</h3>
+					<p>Pruebe el botón y el slider; luego cambie de estilo.</p>
+				</div>
+				<div class="sample-actions">
+					<button
+						type="button"
+						macheticoButton
+						(click)="activations.set(activations() + 1)"
+					>
+						Probar acción
+					</button>
+					<p role="status">Acciones: {{ activations() }}</p>
+				</div>
+				<machetico-slider
+					label="Nivel de ejemplo"
+					[(value)]="level"
+					[min]="0"
+					[max]="100"
+				/>
+				<p>Nivel: {{ level() }}%</p>
+			</div>
+			<machetico-alert variant="info"
+				><strong
+					>Los estilos los proporciona la aplicación donde se instala la
+					biblioteca.</strong
+				>
+				Estas apariencias están definidas exclusivamente en el demo. Use este mismo enfoque
+				en su proyecto: componentes de machetico-ui y estilos propios en el
+				consumidor.</machetico-alert
+			>
+			<ol class="consumer-styling-steps">
+				<li>Importe los componentes o directivas desde machetico-ui.</li>
+				<li>
+					Aplique sus clases y reglas Tailwind en el stylesheet global del consumidor; use
+					los atributos data-part, data-variant y ARIA para sus variantes.
+				</li>
+				<li>
+					Conserve las etiquetas, foco visible y los estados hidden, inert y disabled que
+					sostienen el comportamiento accesible.
+				</li>
+			</ol>
+			<p>
+				El estilo elegido se mantiene al explorar
+				<a routerLink="/components">los componentes</a>,
+				<a routerLink="/services">los servicios</a> y
+				<a routerLink="/directives">las directivas</a> de este demo.
+			</p>
+		</div>
+	</machetico-panel>
+
+	<machetico-content-section
+		title="Una base común para interfaces con identidad propia"
+		description="Una biblioteca Angular reutilizable que concentra las interacciones y la estructura accesible."
+	>
+		<p>
+			Botones, selects, sliders, diálogos, sidebars, tablas y formularios comparten
+			comportamiento. Angular ARIA administra las interacciones compatibles y los controles
+			nativos resuelven los patrones especializados.
+		</p>
+		<p>
+			Su aplicación define los estilos con Tailwind: colores, tipografía, espaciado y
+			composición. Así Taurus, Megaphone, Folio o cualquier otro proyecto pueden conservar su
+			identidad sobre la misma base.
+		</p>
+		<div class="catalogue-grid">
+			<a routerLink="/components" macheticoCard
+				><h3>Componentes</h3>
+				<p>
+					Una vista por componente, con ejemplos interactivos, API, accesibilidad y
+					estilos.
+				</p></a
+			><a routerLink="/services" macheticoCard
+				><h3>Servicios</h3>
+				<p>
+					Instalación y transporte HTTP opcional, con datos y permisos bajo control de su
+					aplicación.
+				</p></a
+			><a routerLink="/directives" macheticoCard
+				><h3>Directivas</h3>
+				<p>Comportamientos reutilizables que conservan la semántica del HTML.</p></a
+			>
+		</div>
+	</machetico-content-section>
+	<machetico-content-section
+		title="Quién está detrás: MacheTico"
+		eyebrow="TECNOLOGÍA PARA EL BRETE DE CADA DÍA"
+		description="Creamos software para PYMES de Costa Rica, con la marca de cada negocio."
+	>
+		<p>
+			En MacheTico reunimos la página web, el inventario, la facturación electrónica y la
+			operación del día a día en un mismo sistema. Cada negocio activa y combina los módulos
+			que necesita: pedidos, citas, reservas e inventario, según su forma de trabajar.
+		</p>
+		<p>
+			Machetico UI nace de esa misma manera de construir: reutilizar una base de
+			comportamiento y permitir que cada producto tenga su propia identidad visual. Esta
+			biblioteca la desarrolla MacheTico y está disponible para que otras personas también
+			construyan con ella.
+		</p>
+		<p>
+			<a href="https://github.com/MacheticoCR/machetico-ui"
+				>Ver el repositorio de MacheTico en GitHub</a
+			>
+		</p>
+	</machetico-content-section>
+	<footer>
+		<p>© 2026 MacheTico · Machetico UI · Licencia MIT.</p>
+		<p>
+			Esta portada y la documentación usan la propia biblioteca. Los ejemplos contienen datos
+			sintéticos.
+		</p>
+	</footer>
+</div>

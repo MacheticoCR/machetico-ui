@@ -1,0 +1,18 @@
+<machetico-page-heading
+	title="Servicios"
+	eyebrow="RESPONSABILIDADES COMPARTIDAS"
+	description="Una vista por servicio: propósito, contrato, configuración, ejemplos y SSR/CSR."
+/>
+<machetico-alert variant="info"
+	>Api es una entrada HTTP opcional. Scrollbar y ScrollReveal son públicos. ScrollLock y ViewIds
+	se documentan como detalles internos; no se importan directamente.</machetico-alert
+>
+<div class="catalogue-grid">
+	@for (service of services; track service.id) {
+		<a [routerLink]="['/services', service.id]" macheticoCard
+			><h2>{{ service.name }}</h2>
+			<p>{{ service.description }}</p>
+			<span>{{ service.visibility }}</span></a
+		>
+	}
+</div>

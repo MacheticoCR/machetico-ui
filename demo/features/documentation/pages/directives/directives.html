@@ -1,0 +1,44 @@
+<machetico-page-heading
+	[title]="entries()[0]?.name || 'Directivas'"
+	eyebrow="ELEMENTOS NATIVOS"
+	description="Comportamiento y atributos semánticos sin imponer identidad visual."
+/>
+<machetico-alert variant="info"
+	>Button, Card, Badge, Grid, Text y ResponsiveImageDirective se aplican a elementos HTML
+	existentes. Las clases de este demo no se distribuyen con la biblioteca.</machetico-alert
+>
+@if (!selectedId()) {
+	<div class="catalogue-grid">
+		@for (item of catalogue; track item.id) {
+			<a [routerLink]="['/directives', item.id]" macheticoCard
+				><h2>{{ item.name }}</h2>
+				<p>{{ item.description }}</p>
+				<span>Ver la directiva →</span></a
+			>
+		}
+	</div>
+}
+@for (entry of entries(); track entry.id) {
+	<machetico-panel [id]="entry.id" [title]="entry.name" class="reference-panel"
+		><div class="reference-body">
+			<p>{{ entry.description }}</p>
+			<div class="live-example" [attr.data-example]="entry.id">
+				@switch (entry.id) {
+					<!-- live-examples -->
+				}
+			</div>
+			<details>
+				<summary>Código de {{ entry.name }}</summary>
+				<pre tabindex="0"><code [textContent]="examples[entry.id]"></code></pre>
+			</details>
+			<details>
+				<summary>API de {{ entry.name }}</summary>
+				<machetico-table
+					[caption]="'API de ' + entry.name"
+					[rows]="entry.api"
+					[columns]="apiColumns"
+					[rowKey]="apiKey"
+				/>
+			</details></div
+	></machetico-panel>
+}

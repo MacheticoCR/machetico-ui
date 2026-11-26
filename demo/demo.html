@@ -1,52 +1,28 @@
-<main [attr.data-theme]="theme()">
-	<h1>Machetico UI</h1>
-	<p>Una biblioteca de comportamiento. La identidad pertenece a la aplicación.</p>
-	<label
-		>Identidad de ejemplo
-		<select [value]="theme()" (change)="theme.set($event.target.value)">
-			<option value="folio">Folio</option>
-			<option value="taurus">Taurus</option>
-			<option value="megaphone">Megaphone</option>
-		</select></label
-	>
-	<section macheticoCard>
-		<h2>Botones y paneles</h2>
-		<button macheticoButton [busy]="busy()" (click)="count.set(count() + 1)">
-			Acción {{ count() }}
-		</button>
-		<label
-			><input type="checkbox" [checked]="busy()" (change)="busy.set($event.target.checked)" />
-			Simular pendiente</label
+<div class="docs-app" [attr.data-design]="appearance()">
+	<a href="#contenido" class="skip-link">Saltar al contenido</a>
+	<header class="docs-topbar">
+		<a routerLink="/" class="docs-brand"><span aria-hidden="true">m/</span> Machetico UI</a>
+		<span class="docs-version">v0.1.0 · Angular ARIA first</span>
+		<div class="docs-design">
+			<machetico-select label="Estilo de diseño" [options]="designs" [(value)]="appearance" />
+		</div>
+		<button
+			type="button"
+			class="mobile-menu"
+			macheticoButton="ghost"
+			(click)="menuOpen.set(true)"
 		>
-		<button macheticoButton="secondary" id="open-sidebar" (click)="sidebar.set(true)">
-			Abrir sidebar
+			Menú
 		</button>
-		<button macheticoButton="secondary" id="open-dialog" (click)="dialog.set(true)">
-			Abrir diálogo
-		</button>
-	</section>
-	<section macheticoCard>
-		<h2>Sliders y select Angular ARIA</h2>
-		<machetico-slider label="Volumen" [(value)]="value" />
-		<machetico-select label="Seleccionar opción" [options]="options" [(value)]="choice" />
-		<machetico-image-slider [slides]="slides" />
-	</section>
-	<section macheticoCard>
-		<machetico-table
-			caption="Datos sintéticos"
-			[rows]="rows"
-			[columns]="columns"
-			[rowKey]="key"
-			[sort]="sort()"
-			(sortChanged)="sort.set($event)"
-		/>
-	</section>
-	<machetico-sidebar title="Navegación" [(open)]="sidebar"
-		><nav><a href="#">Inicio</a></nav></machetico-sidebar
-	>
-	@if (dialog()) {
-		<machetico-dialog title="Confirmación" (closed)="dialog.set(false)"
-			><p>Contenido proporcionado por la aplicación.</p></machetico-dialog
-		>
-	}
-</main>
+	</header>
+	<div class="docs-layout">
+		<aside class="docs-sidebar" aria-label="Índice de documentación">
+			<docs-navigation data-nav-id="desktop" />
+			<p>Comportamiento compartido.<br />Identidad propia.</p>
+		</aside>
+		<main id="contenido"><router-outlet /></main>
+	</div>
+	<machetico-sidebar title="Documentación" [(open)]="menuOpen">
+		<docs-navigation data-nav-id="mobile" (selected)="menuOpen.set(false)" />
+	</machetico-sidebar>
+</div>

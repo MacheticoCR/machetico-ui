@@ -54,7 +54,11 @@ export function responsiveImage(source: string, widths: readonly number[]): Resp
  */
 @Directive({
   selector: 'img[macheticoImage]',
-  host: { '[src]': 'image().src', '[attr.srcset]': 'image().srcset', '[attr.sizes]': 'sizes()' },
+  host: {
+    '[src]': 'image().src',
+    '[attr.srcset]': 'image().srcset',
+    '[attr.sizes]': 'sizes()',
+  },
 })
 export class ResponsiveImageDirective {
   /**

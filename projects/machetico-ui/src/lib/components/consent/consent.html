@@ -1,0 +1,8 @@
+<label data-part="consent"
+	><input
+		type="checkbox"
+		[checked]="accepted()"
+		[disabled]="disabled()"
+		[required]="required()"
+		(change)="change($event)" /><span>{{ label() }} <ng-content /></span
+></label>

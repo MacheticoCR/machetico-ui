@@ -3,7 +3,7 @@ import { ChangeDetectionStrategy, Component, input, model } from '@angular/core'
 import type { Choice } from '../../interfaces';
 
 /**
- * Reusable headless presentation component owned by Angular.
+ * Angular ARIA listbox with explicit selection and caller-owned choices and value.
  *
  * @class ChoiceList
  * @typeParam T - Caller-supplied type retained by the shared implementation.

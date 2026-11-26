@@ -8,3 +8,4 @@ test-results/
 projects/machetico-ui/package-docs/
 projects/machetico-ui/README.md
 projects/machetico-ui/LICENSE
+demo/catalog.generated.js

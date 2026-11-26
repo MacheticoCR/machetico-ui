@@ -1,0 +1,24 @@
+<article data-part="document">
+	<header>
+		<h2>{{ title() }}</h2>
+		<p>
+			{{ version() }}
+			@if (updatedAt()) {
+				· {{ updatedAt() }}
+			}
+		</p>
+		@if (notice()) {
+			<p role="note">{{ notice() }}</p>
+		}
+		<button type="button" (click)="printRequested.emit()">{{ printLabel() }}</button>
+	</header>
+	@for (section of sections(); track section.id) {
+		<section data-part="section">
+			<h3>{{ section.title }}</h3>
+			@for (paragraph of section.paragraphs; track $index) {
+				<p>{{ paragraph }}</p>
+			}
+		</section>
+	}
+	<ng-content />
+</article>
