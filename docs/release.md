@@ -15,6 +15,8 @@ npm run release:check
 
 El gate ejecuta formato, arquitectura, TSDoc, tipos estrictos, compilación, regresiones unitarias/SSR/navegador, audit, empaquetado, inspección de contenidos, instalación real en consumidor AOT/SSR y `npm publish --dry-run`. No publica al registro. El tarball queda en `artifacts/machetico-ui-<version>.tgz`. Compruebe que la versión de `projects/machetico-ui/package.json` es la deseada antes de construir.
 
+Después de una publicación, CI debe poder validar cambios de documentación sin intentar reutilizar la versión en npm. El script de simulación consulta primero la versión exacta: si ya existe, añade `--force` únicamente junto al `--dry-run` obligatorio para evitar el rechazo de inmutabilidad de npm durante la simulación. No se ignoran errores de red/autenticación ni se omiten inspección o pruebas del paquete. La publicación real nunca usa ese flag y exige una versión nueva.
+
 El paquete conserva MIT/autoría MacheTico, licencia de Lucide, tipos y exports APF. No contiene CSS/temas, aplicaciones consumidoras, secretos ni dependencias runtime de Tailwind, Router o Lucide. Angular/ARIA son peers y tslib es su única dependencia propia.
 
 ## Paso de publicación del responsable
