@@ -2,7 +2,7 @@ import { ChangeDetectionStrategy, Component, input } from '@angular/core';
 import type { IconName } from '../../interfaces';
 
 /**
- * Reusable headless presentation component owned by Angular.
+ * Decorative SVG rendering of the curated Lucide names shared with Taurus; consumers label enclosing actions.
  *
  * @class Icon
  */

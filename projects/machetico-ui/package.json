@@ -3,16 +3,17 @@
   "version": "0.1.0",
   "sideEffects": false,
   "peerDependencies": {
-    "@angular/aria": "^22.2.0",
-    "@angular/common": "^22.2.0",
-    "@angular/core": "^22.2.0",
-    "@angular/forms": "^22.2.0"
+    "@angular/aria": "22.2.6",
+    "@angular/common": "^22.2.6",
+    "@angular/core": "^22.2.6",
+    "@angular/forms": "^22.2.6",
+    "@angular/localize": "^22.2.6"
   },
   "dependencies": {
     "tslib": "^2.3.0"
   },
   "description": "Headless Angular interaction components with Angular ARIA-first behavior",
-  "license": "UNLICENSED",
+  "license": "MIT",
   "repository": {
     "type": "git",
     "url": "https://github.com/MacheticoCR/machetico-ui.git"
@@ -23,5 +24,26 @@
     "headless",
     "components",
     "machetico"
-  ]
+  ],
+  "author": "MacheTico",
+  "homepage": "https://github.com/MacheticoCR/machetico-ui#readme",
+  "bugs": {
+    "url": "https://github.com/MacheticoCR/machetico-ui/issues"
+  },
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org/"
+  },
+  "files": [
+    "fesm2022",
+    "types",
+    "assets",
+    "docs",
+    "README.md",
+    "LICENSE",
+    "THIRD_PARTY_NOTICES.md"
+  ],
+  "engines": {
+    "node": ">=24.15.0"
+  }
 }

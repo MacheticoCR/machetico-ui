@@ -1,0 +1,85 @@
+<nav aria-label="Ruta de documentación"><a routerLink="/services">Todos los servicios</a></nav>
+<machetico-page-heading
+	title="ScrollReveal"
+	eyebrow="MACHETICO-UI · PROVEEDOR LOCAL"
+	description="Reutiliza la coordinación de viewport y animaciones de Taurus con keyframes y estilos definidos por su aplicación."
+/>
+<machetico-panel title="Ejemplo interactivo"
+	><div class="reference-body" data-service-example="scroll-reveal">
+		<button type="button" macheticoButton (click)="generation.set(generation() + 1)">
+			Repetir entrada de tarjetas
+		</button>
+		<p role="status">
+			Repeticiones: {{ generation() }}. Entrada completada:
+			{{ reveal.finished() ? 'sí' : 'pendiente' }}.
+		</p>
+		<div class="sample-grid">
+			@for (card of cards(); track card.id) {
+				<article
+					macheticoCard
+					(animate.enter)="reveal.enter($event, card.column, motion)"
+					(animate.leave)="reveal.leave($event)"
+				>
+					<h3>Tarjeta {{ card.column + 1 }}</h3>
+					<p>Contenido sintético. La apariencia y los keyframes pertenecen al demo.</p>
+				</article>
+			}
+		</div>
+	</div></machetico-panel
+>
+<machetico-panel title="Configuración y uso"
+	><div class="reference-body">
+		<p>
+			Importe ScrollReveal desde machetico-ui y declárelo en providers de su componente. Es un
+			servicio local: cada vista posee sus observaciones y Angular las libera con DestroyRef.
+			No lo convierta en un singleton global.
+		</p>
+		<pre
+			tabindex="0"
+			aria-label="Uso de ScrollReveal"
+		><code [textContent]="examples.scrollReveal"></code></pre></div
+></machetico-panel>
+<machetico-panel title="Contrato por responsabilidad"
+	><div class="reference-body">
+		<h2>observe(element, onReveal)</h2>
+		<p>
+			Observa una entrada al viewport y devuelve cancelación idempotente. Agrega
+			data-reveal=pending hasta poder mostrar el elemento; al revelar o cancelar lo deja
+			visible. Al cancelar no ejecuta onReveal. Se usa también dentro de la directiva Reveal:
+			no hay un segundo motor de observación.
+		</p>
+		<h2>enter(event, column?, options?)</h2>
+		<p>
+			Adapta animate.enter. El callback se completa una vez al finalizar, cancelar o fallar la
+			animación. options.keyframes define la identidad; sin frames solo cambia el estado
+			semántico. duration usa 320 ms por defecto; stagger usa 45 ms en tres posiciones; easing
+			conserva el valor de Taurus y puede sobrescribirse.
+		</p>
+		<h2>leave(event)</h2>
+		<p>
+			Finaliza la entrada pendiente del elemento, libera su observación y completa el callback
+			de salida. finished es una señal que indica si alguna entrada de esta instancia ya
+			terminó; no representa el estado individual de todas las tarjetas.
+		</p>
+	</div></machetico-panel
+>
+<machetico-panel title="Teclado, movimiento reducido y SSR"
+	><div class="reference-body">
+		<p>
+			El contenido inicial se mantiene visible en SSR. El navegador observa después del
+			render; sin IntersectionObserver, sin Web Animations o con movimiento reducido, completa
+			sin animación. Focus y beforeprint fuerzan visibilidad para no ocultar contenido
+			utilizable. Mantenga además reglas CSS focus-within, impresión y prefers-reduced-motion
+			para los estados pendientes.
+		</p>
+		<pre
+			tabindex="0"
+			aria-label="Estilos de reveal del consumidor"
+		><code [textContent]="examples.revealStyles"></code></pre>
+		<p>
+			Para una entrada sencilla con CSS puede usar
+			<a routerLink="/directives/reveal">la directiva Reveal</a>. Para callbacks animate.enter
+			y keyframes explícitos use este servicio.
+		</p>
+	</div></machetico-panel
+>

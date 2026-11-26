@@ -1,0 +1,13 @@
+<section data-part="chapter" [attr.data-align]="align()">
+	<div data-part="media"><ng-content select="[featureMedia]" /></div>
+	<div data-part="content">
+		<h2>{{ title() }}</h2>
+		<p>{{ description() }}</p>
+		<ul>
+			@for (feature of features(); track $index) {
+				<li>{{ feature }}</li>
+			}
+		</ul>
+		<div data-part="actions"><ng-content select="[featureActions]" /></div>
+	</div>
+</section>

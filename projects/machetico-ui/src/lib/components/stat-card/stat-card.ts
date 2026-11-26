@@ -3,7 +3,7 @@ import { Card } from '../../directives/card/card.directive';
 import { Text } from '../../directives/text/text.directive';
 
 /**
- * Reusable headless presentation component owned by Angular.
+ * Consumer-owned statistic label, value and explanation with semantic emphasis state.
  *
  * @class StatCard
  */

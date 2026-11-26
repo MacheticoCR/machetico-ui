@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, computed, input, model, output } from '@angular/core';
 
 /**
- * Slider owns reusable visual interactions; consumers own data and persistence.
+ * Native range control that shares keyboard and pointer behavior while the consumer owns its numeric value.
  * @class Slider
  */
 @Component({
@@ -52,7 +52,12 @@ export class Slider {
    * @param event - Native range input event.
    */
   public change(event: Event): void {
-    if (this.disabled() || !(event.target instanceof HTMLInputElement)) return;
+    if (
+      this.disabled() ||
+      typeof HTMLInputElement === 'undefined' ||
+      !(event.target instanceof HTMLInputElement)
+    )
+      return;
     this.value.set(event.target.valueAsNumber);
   }
 }

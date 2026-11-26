@@ -1,0 +1,119 @@
+<machetico-page-heading
+	[title]="entries()[0]?.name || 'Componentes'"
+	eyebrow="CATÁLOGO INTERACTIVO"
+	description="Ejemplos ejecutables, código y API de cada componente. Los estilos pertenecen a este demo."
+/>
+<machetico-alert variant="info"
+	>{{ catalogue.length }} componentes concretos · Angular ARIA primero · Datos sintéticos · SSR +
+	hidratación + CSR</machetico-alert
+>
+@if (!selectedId()) {
+	<div class="catalogue-grid">
+		@for (item of catalogue; track item.id) {
+			<a [routerLink]="['/components', item.id]" macheticoCard
+				><h2>{{ item.name }}</h2>
+				<p>{{ item.description }}</p>
+				<span>Ver ejemplos y documentación →</span></a
+			>
+		}
+	</div>
+}
+@for (entry of entries(); track entry.id) {
+	<machetico-panel [id]="entry.id" [title]="entry.name" class="reference-panel">
+		<div class="reference-body">
+			<nav aria-label="Ruta de documentación">
+				<a routerLink="/components">Todos los componentes</a> / {{ entry.name }}
+			</nav>
+			<h2>Descripción y responsabilidad</h2>
+			<p class="reference-description">{{ entry.description }}</p>
+			@if (guides[entry.id]; as guide) {
+				<nav class="page-sections" aria-label="En esta página">
+					<a href="#example">Ejemplo</a><a href="#usage">Uso</a><a href="#api">API</a
+					><a href="#accessibility">Accesibilidad</a><a href="#styling">Estilos</a>
+				</nav>
+				<section id="usage">
+					<h2>Cuándo y cómo usarlo</h2>
+					<p>{{ guide.usage }}</p>
+					<h3>Estado y responsabilidad del consumidor</h3>
+					<p>{{ guide.state }}</p>
+				</section>
+				<section id="accessibility">
+					<h2>Teclado y accesibilidad</h2>
+					<p>{{ guide.accessibility }}</p>
+				</section>
+				<section id="styling">
+					<h2>Estilos y composición</h2>
+					<p>{{ guide.styling }}</p>
+				</section>
+			}
+			<h2 id="example">Ejemplo interactivo</h2>
+			<div class="live-example" [attr.data-example]="entry.id">
+				@switch (entry.id) {
+					<!-- live-examples -->
+				}
+			</div>
+			<details>
+				<summary>Código de {{ entry.name }}</summary>
+				<pre
+					tabindex="0"
+					[attr.aria-label]="'Código de ' + entry.name"
+				><code [textContent]="examples[entry.id]"></code></pre>
+				<p>
+					Importá {{ entry.name }} desde machetico-ui y añadilo a imports. Los valores y
+					handlers son estado de esta página de ejemplo.
+				</p>
+			</details>
+			<details>
+				<summary id="api">API de {{ entry.name }}</summary>
+				<machetico-table
+					[caption]="'Entradas y salidas de ' + entry.name"
+					[rows]="entry.api"
+					[columns]="apiColumns"
+					[rowKey]="apiKey"
+					emptyMessage="Usa proyección de contenido; no tiene entradas adicionales."
+				/>
+			</details>
+			<section class="usage-guide">
+				<h2>Uso e integración</h2>
+				<p>
+					Importe {{ entry.name }} desde machetico-ui en el imports de su componente
+					standalone. El ejemplo anterior muestra el template que se ejecuta en esta
+					página; los datos y las acciones pertenecen al consumidor.
+				</p>
+				<h3>Entradas, modelos y eventos</h3>
+				<p>
+					La tabla API contiene los nombres, tipos, valores iniciales y descripciones
+					extraídos del código. Las entradas model emiten su salida Change
+					correspondiente; las salidas output expresan intenciones, sin ejecutar
+					operaciones de negocio.
+				</p>
+				<h3>Métodos públicos</h3>
+				<machetico-table
+					[caption]="'Métodos de ' + entry.name"
+					[rows]="entry.methods"
+					[columns]="methodColumns"
+					[rowKey]="apiKey"
+					emptyMessage="No requiere invocaciones imperativas: use sus entradas y salidas."
+				/>
+				<h3>SSR y CSR</h3>
+				<p>
+					Esta misma vista se renderiza en el servidor y se hidrata. Agregue ?render=csr a
+					la URL para comparar el inicio cliente. El contenido inicial debe coincidir; los
+					recursos de navegador se activan después del render y se liberan al desmontar la
+					vista.
+				</p>
+				<h3>Identidad visual y accesibilidad</h3>
+				<p>
+					Use clases en el host y selectores data-part, ARIA y data-state en el stylesheet
+					global de su aplicación. Conserve las etiquetas, hidden, inert y disabled. La
+					biblioteca no decide permisos ni persiste valores.
+				</p>
+			</section>
+		</div>
+	</machetico-panel>
+}
+@if (selectedId() && !entries().length) {
+	<machetico-empty-state message="Este componente no existe en el catálogo."
+		><a routerLink="/components">Volver al catálogo</a></machetico-empty-state
+	>
+}

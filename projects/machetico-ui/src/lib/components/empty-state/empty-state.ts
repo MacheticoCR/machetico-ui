@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, input } from '@angular/core';
 
 /**
- * Reusable headless presentation component owned by Angular.
+ * Consumer-supplied empty-result explanation with projected recovery actions.
  *
  * @class EmptyState
  */

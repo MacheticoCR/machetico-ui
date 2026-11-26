@@ -1,0 +1,17 @@
+@if (metrics().length) {
+	<dl data-part="metrics" [attr.aria-label]="label()">
+		@for (metric of metrics(); track metric.id) {
+			<div data-part="metric">
+				<dt>{{ metric.label }}</dt>
+				<dd>
+					{{ metric.value === null ? missingLabel() : metric.value }}
+					@if (metric.detail) {
+						<span data-part="detail">{{ metric.detail }}</span>
+					}
+				</dd>
+			</div>
+		}
+	</dl>
+} @else {
+	<p data-part="empty">{{ emptyLabel() }}</p>
+}

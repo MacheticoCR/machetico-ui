@@ -1,0 +1,41 @@
+<main>
+	<h1>Packaged consumer ready</h1>
+	<section macheticoCard>
+		<button type="button" macheticoButton>Native action</button
+		><machetico-icon name="arrow-left" /><machetico-field-group legend="Synthetic inputs"
+			><machetico-input
+				label="Name"
+				name="name"
+				ngModel="Synthetic person"
+				required /><machetico-textarea
+				label="Notes"
+				name="notes"
+				ngModel="Synthetic notes" /><machetico-checkbox
+				label="Consent"
+				name="consent"
+				[ngModel]="false" /></machetico-field-group
+		><machetico-select
+			label="Choice"
+			[options]="[
+				{ value: 'first', label: 'First' },
+				{ value: 'second', label: 'Second' },
+			]"
+			[(value)]="selected"
+		/><machetico-slider label="Volume" [(value)]="volume" /><machetico-table
+			caption="Synthetic rows"
+			[rows]="[{ id: 1 }]"
+			[columns]="[]"
+			[rowKey]="rowKey"
+		/><machetico-pagination [page]="1" [total]="30" [pageSize]="10" /><machetico-image-slider
+			[slides]="[]"
+			[interval]="0"
+		/><machetico-sidebar title="Navigation" [(open)]="open"
+			><p>Sidebar projection</p></machetico-sidebar
+		>
+		@if (open()) {
+			<machetico-dialog title="Confirmation" (closed)="open.set(false)"
+				><p>Dialog projection</p></machetico-dialog
+			>
+		}
+	</section>
+</main>

@@ -1,0 +1,34 @@
+<nav aria-label="Ruta de documentación"><a routerLink="/services">Todos los servicios</a></nav>
+<machetico-page-heading
+	title="ViewIds"
+	eyebrow="INTERNO · IDENTIFICADORES ACCESIBLES"
+	description="Asigna relaciones accesibles sin compartir contadores entre aplicaciones o solicitudes SSR."
+/>
+<machetico-alert variant="info"
+	>ViewIds es interno y no está exportado para uso directo. Los componentes de machetico-ui lo
+	utilizan cuando necesitan relacionar sus elementos.</machetico-alert
+>
+<machetico-panel title="Responsabilidad y contrato"
+	><div class="reference-body">
+		<p>
+			next(prefix) devuelve un identificador con el prefijo del componente y la siguiente
+			posición dentro del injector actual. No usa reloj, datos de usuario, storage ni
+			contadores globales. Cada solicitud SSR comienza una secuencia nueva que corresponde al
+			orden inicial de creación durante la hidratación.
+		</p>
+		<h2>Ownership y SSR/CSR</h2>
+		<p>
+			El injector de la aplicación posee la secuencia; no hay listeners ni recursos de
+			navegador que liberar. El consumidor conserva el mismo árbol inicial entre servidor y
+			navegador. Estos identificadores son relaciones de vista, no identidades de negocio ni
+			valores persistidos.
+		</p>
+		<h2>Uso mediante componentes</h2>
+		<p>
+			<a routerLink="/components/dialog">Dialog</a> relaciona su título con aria-labelledby.
+			<a routerLink="/components/site-header">SiteHeader</a> relaciona el botón de navegación
+			con aria-controls. Puede inspeccionar esas relaciones en sus ejemplos sin importar el
+			servicio interno.
+		</p>
+	</div></machetico-panel
+>

@@ -2,7 +2,7 @@ import { ChangeDetectionStrategy, Component, computed, input, model, output } fr
 import type { TableColumn, TableSort } from '../../interfaces';
 
 /**
- * Table<T> owns reusable visual interactions; consumers own data and persistence.
+ * Native data table with caller-owned rows, accessible read states and immutable sorting intent.
  * @class Table
  * @typeParam T - Consumer-owned row contract.
  */

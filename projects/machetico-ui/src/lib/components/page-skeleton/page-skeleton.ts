@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, computed, input } from '@angular/core';
 
 /**
- * Reusable headless presentation component owned by Angular.
+ * Static placeholder structure with an accessible loading announcement and consumer-owned visual styling.
  *
  * @class PageSkeleton
  */

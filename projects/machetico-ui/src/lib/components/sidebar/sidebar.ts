@@ -2,7 +2,7 @@ import { ChangeDetectionStrategy, Component, computed, input, model, output } fr
 import { Dialog } from '../dialog/dialog';
 
 /**
- * Sidebar owns reusable visual interactions; consumers own data and persistence.
+ * Controlled navigation panel reusing native modal focus, dismissal and scroll cleanup.
  * @class Sidebar
  */
 @Component({

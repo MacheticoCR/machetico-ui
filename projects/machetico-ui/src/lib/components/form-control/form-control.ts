@@ -274,7 +274,12 @@ export abstract class FormControl implements ControlValueAccessor, Validator {
    */
   public changed(event: Event): void {
     const target = event.target;
-    if (!(target instanceof HTMLInputElement || target instanceof HTMLTextAreaElement)) return;
+    if (
+      typeof HTMLInputElement === 'undefined' ||
+      typeof HTMLTextAreaElement === 'undefined' ||
+      !(target instanceof HTMLInputElement || target instanceof HTMLTextAreaElement)
+    )
+      return;
     const value =
       target instanceof HTMLInputElement && target.type === 'number'
         ? target.value === ''
