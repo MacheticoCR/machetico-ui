@@ -1,0 +1,25 @@
+<header data-part="header" [class]="headerClass()">
+	<div data-part="brand"><ng-content select="[headerBrand]" /></div>
+	<button
+		type="button"
+		data-part="toggle"
+		[class]="toggleClass()"
+		[hidden]="!interactive() || !isCollapsible()"
+		[attr.aria-controls]="navigationId"
+		[attr.aria-expanded]="open()"
+		(click)="open.set(!open())"
+	>
+		{{ toggleLabel() }}
+	</button>
+	<nav
+		data-part="navigation"
+		[class]="navigationClass()"
+		[attr.data-open]="!interactive() || !isCollapsible() || open()"
+		[id]="navigationId"
+		[attr.aria-label]="label()"
+		[hidden]="interactive() && isCollapsible() && !open()"
+	>
+		<ng-content select="[headerLinks]" />
+	</nav>
+	<div data-part="actions"><ng-content select="[headerActions]" /></div>
+</header>

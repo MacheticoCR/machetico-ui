@@ -1,0 +1,31 @@
+<dialog
+	[attr.data-placement]="placement()"
+	data-part="dialog"
+	#dialog
+	[attr.aria-labelledby]="titleId"
+	[attr.data-side]="side()"
+	[attr.data-closing]="closing() ? '' : null"
+	[attr.role]="modalRole()"
+	[attr.aria-describedby]="describedBy() || null"
+	(animationend)="finishClose($event)"
+	(animationcancel)="finishClose($event)"
+	aria-modal="true"
+	[attr.aria-busy]="busy()"
+	(cancel)="cancel($event)"
+	(close)="handleClosed()"
+	(click)="backdrop($event)"
+>
+	<header data-part="header" [hidden]="!showHeader()">
+		<h2 data-part="h2" [id]="titleId">{{ title() }}</h2>
+		<button
+			data-part="button"
+			type="button"
+			[attr.aria-label]="closeLabel()"
+			[disabled]="busy()"
+			(click)="close()"
+		>
+			<machetico-icon name="x" />
+		</button>
+	</header>
+	<ng-content />
+</dialog>

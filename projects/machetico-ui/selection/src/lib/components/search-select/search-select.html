@@ -1,0 +1,39 @@
+<input
+	#trigger
+	data-part="input"
+	type="text"
+	ngCombobox
+	#combobox="ngCombobox"
+	[(value)]="query"
+	[(expanded)]="expanded"
+	(expandedChange)="expandedChanged($event)"
+	[disabled]="disabled()"
+	[placeholder]="placeholder()"
+	[attr.aria-label]="label()"
+	autocomplete="off"
+	(focus)="focus()"
+/>
+<ng-template ngComboboxPopup [combobox]="combobox" popupType="listbox">
+	<div
+		#popupElement
+		data-part="options"
+		popover="manual"
+		ngComboboxWidget
+		ngListbox
+		#listbox="ngListbox"
+		[activeDescendant]="listbox.activeDescendant()"
+		[value]="[value()]"
+		(valueChange)="select($event)"
+		[attr.aria-label]="label()"
+		focusMode="activedescendant"
+		selectionMode="explicit"
+	>
+		@for (option of filteredOptions(); track option.value + ':' + option.label) {
+			<div data-part="option" ngOption [value]="option.value" [label]="option.label">
+				{{ option.label }}
+			</div>
+		} @empty {
+			<p data-part="empty" role="status">{{ emptyLabel() }}</p>
+		}
+	</div>
+</ng-template>

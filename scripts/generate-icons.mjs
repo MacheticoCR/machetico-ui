@@ -1,7 +1,7 @@
 import { readFileSync, writeFileSync, copyFileSync } from 'node:fs';
 import ts from 'typescript';
 import * as prettier from 'prettier';
-const contract = 'projects/machetico-ui/src/lib/interfaces/icon-name.type.ts';
+const contract = 'projects/machetico-ui/core/src/lib/interfaces/icon-name.type.ts';
 const source = ts.createSourceFile(
   contract,
   readFileSync(contract, 'utf8'),
@@ -19,7 +19,7 @@ const template =
   '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">@switch(name()) {' +
   paths.map(({ name, body }) => `@case ('${name}') {${body}}`).join('') +
   '}</svg>';
-const target = 'projects/machetico-ui/src/lib/components/icon/icon.html';
+const target = 'projects/machetico-ui/icon/src/lib/components/icon/icon.html';
 writeFileSync(
   target,
   await prettier.format(template, { ...(await prettier.resolveConfig(target)), filepath: target }),

@@ -1,0 +1,50 @@
+@if (pageCount() > 1) {
+	<nav data-part="nav" [attr.aria-label]="label()">
+		<p data-part="p">
+			<ng-container i18n>{{ first() }}–{{ last() }} de {{ total() }}</ng-container>
+		</p>
+		<div
+			data-part="div"
+			ngToolbar
+			[softDisabled]="false"
+			[disabled]="busy()"
+			[attr.aria-label]="label()"
+		>
+			<button
+				data-part="button"
+				ngToolbarWidget
+				type="button"
+				i18n-aria-label
+				aria-label="Página anterior"
+				[disabled]="busy() || current() <= 1"
+				(click)="pageChanged.emit(current() - 1)"
+			>
+				←
+			</button>
+			@for (number of numbers(); track number) {
+				<button
+					data-part="button-2"
+					ngToolbarWidget
+					type="button"
+					[attr.aria-label]="pageLabelPrefix() + ' ' + number"
+					[attr.aria-current]="number === current() ? 'page' : null"
+					[disabled]="busy()"
+					(click)="pageChanged.emit(number)"
+				>
+					{{ number }}
+				</button>
+			}
+			<button
+				data-part="button-3"
+				ngToolbarWidget
+				type="button"
+				i18n-aria-label
+				aria-label="Página siguiente"
+				[disabled]="busy() || current() >= pageCount()"
+				(click)="pageChanged.emit(current() + 1)"
+			>
+				→
+			</button>
+		</div>
+	</nav>
+}

@@ -3,6 +3,25 @@
  * @property componentGuides
  */
 export const componentGuides = {
+  'navigation-sidebar': {
+    usage: 'Usar navegación no modal sin cargar Dialog, iconos ni formularios.',
+    state:
+      'El padre controla open y proyecta enlaces con sus permisos. collapseBelow determina cuándo se contrae.',
+    accessibility:
+      'SiteHeader conserva disclosure nativo, foco y relaciones ARIA. SSR mantiene los enlaces visibles.',
+    styling:
+      'La aplicación define headerClass, navigationClass y toggleClass, además de los estilos del aside.',
+  },
+  'search-select': {
+    usage:
+      'Proporcione options con value/label, label accesible y [(value)] para confirmar una opción.',
+    state:
+      'query filtra localmente; escribir no cambia value. expanded puede controlarse sin duplicar selección ni overlay.',
+    accessibility:
+      'Angular ARIA gestiona flechas, Enter y Escape. El popup comparte el posicionamiento de Select y no desplaza el contenido.',
+    styling:
+      'La aplicación estiliza el input, [role=listbox], [role=option] y los estados ARIA. Los datos y las lecturas remotas pertenecen al consumidor.',
+  },
   'site-header': {
     usage: 'Proyectá marca, enlaces y acciones con headerBrand, headerLinks y headerActions.',
     state:

@@ -44,6 +44,15 @@ assert.equal(
   readFileSync('dist/machetico-ui/fesm2022/machetico-ui.mjs', 'utf8'),
 );
 assert.equal(installed.license, 'MIT');
+for (const file of readdirSync('dist/machetico-ui/fesm2022').filter((file) =>
+  file.endsWith('.mjs'),
+)) {
+  assert.equal(
+    readFileSync(resolve(root, 'node_modules/machetico-ui/fesm2022', file), 'utf8'),
+    readFileSync(resolve('dist/machetico-ui/fesm2022', file), 'utf8'),
+    `Installed secondary entry differs: ${file}`,
+  );
+}
 const html = readFileSync(resolve(root, 'dist/consumer/browser/index.html'), 'utf8');
 assert.match(html, /Packaged consumer ready/);
 assert.match(html, /Synthetic person/);

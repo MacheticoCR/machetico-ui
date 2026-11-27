@@ -1,5 +1,5 @@
 import assert from 'node:assert/strict';
-import { readFileSync } from 'node:fs';
+import { existsSync, readFileSync } from 'node:fs';
 import { spawnSync } from 'node:child_process';
 const manifest = JSON.parse(readFileSync('dist/machetico-ui/package.json', 'utf8'));
 assert.equal(manifest.name, 'machetico-ui');
@@ -12,6 +12,34 @@ assert.equal(manifest.peerDependencies['@angular/aria'], '22.2.6');
 assert.equal(manifest.peerDependencies['@angular/localize'], '^22.2.6');
 assert.deepEqual(Object.keys(manifest.dependencies), ['tslib']);
 assert.ok(manifest.exports['.'].types && manifest.exports['./api'].types);
+for (const entry of [
+  'core',
+  'view-ids',
+  'button',
+  'native-field',
+  'surface',
+  'shell',
+  'states',
+  'icon',
+  'forms',
+  'selection',
+  'media',
+  'layout',
+  'navigation',
+  'overlay',
+  'dialog',
+]) {
+  assert.ok(manifest.exports['./' + entry]?.types, `Missing public entry point: ${entry}`);
+  assert.ok(existsSync('dist/machetico-ui/' + manifest.exports['./' + entry].types));
+}
+for (const entry of ['button', 'shell', 'navigation', 'native-field']) {
+  const bundle = readFileSync(`dist/machetico-ui/fesm2022/machetico-ui-${entry}.mjs`, 'utf8');
+  assert.doesNotMatch(
+    bundle,
+    /@angular\/aria|@angular\/forms|machetico-ui\/(?:selection|forms|native-field|overlay|layout|media)/,
+    `Bootstrap entry eagerly loads optional controls: ${entry}`,
+  );
+}
 assert.equal(manifest.scripts, undefined);
 const result = spawnSync(
   process.execPath,

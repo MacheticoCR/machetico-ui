@@ -1,7 +1,12 @@
-export * from './badge/badge.directive';
-export * from './button/button.directive';
-export * from './card/card.directive';
-export * from './grid/grid.directive';
-export * from './responsive-image/responsive-image';
-export * from './text/text.directive';
-export * from './reveal/reveal';
+export { Button } from 'machetico-ui/button';
+export {
+  Card,
+  Badge,
+  Grid,
+  Text,
+  NativeTable,
+  responsiveImage,
+  ResponsiveImageDirective,
+  Reveal,
+} from 'machetico-ui/surface';
+export { NativeField } from 'machetico-ui/native-field';

@@ -2,9 +2,13 @@
 
 ## Approved decisions
 
+Consumer adoption exposed an eager-chunk regression when lazy controls and the bootstrap shell shared one APF module. The approved common-library migration therefore uses secondary entry points, following the requested Angular Material-style consumption model: button, surface, shell, states, icon, forms, native-field, selection, media, layout, navigation, overlay, dialog, view-ids and core. The root keeps compatible aggregate exports; implementations cross entry-point boundaries only through their public package paths. Optional ARIA/form controls stay outside lightweight bootstrap imports. This changes packaging, not the frontend stacks, domain contracts or bundle budgets.
+
+The maintainer subsequently authorized installing and implementing machetico-ui in all four frontends, then explicitly required common visual controls to use this package instead of parallel implementations. Application identity, translation, domain data, permissions and HTTP/session policies remain local. Shared native-field semantics and searchable ARIA selection are approved additions for existing forms and Megaphone's country picker. Migration preserves existing working-tree changes and validates each consumer independently. NativeField reads native constraints after blur without importing Angular Forms; Angular/custom validation bindings stay application-owned. NavigationSidebar composes SiteHeader independently of Dialog, keeping nonmodal navigation out of modal/icon bundles. Sidebar reuses that navigation contract for its inline mode and native Dialog for modal drawers; open SSR panels remain renderable.
+
 On 26 November 2026 the maintainer authorized hosting the documentation on GitHub Pages and redeploying it on every update to master. The existing demo gains a static Vite build with hash routing and a repository-relative base path; Pages serves CSR only. The local SSR/hydration harness and the partial-AOT library package remain separate. The documentation bundle deliberately includes Angular's JIT compiler for its existing JavaScript examples; it is not a consumer production application template. No backend, session data or npm publishing credential is deployed. A dedicated Pages workflow validates and deploys master, while PRs validate the static artifact without deployment. Package version and source revision identify the displayed documentation; deploying docs does not change or republish an npm version.
 
-On 26 November 2026 the maintainer approved an independent Angular library, machetico-ui, in the public Machetico organization. Taurus, Megaphone and Folio are reference implementations and future consumers. They remain unchanged.
+On 26 November 2026 the maintainer approved an independent Angular library, machetico-ui, in the public Machetico organization. Taurus, Megaphone and Folio are reference implementations and future consumers. Their domain and visual identity remain application-owned.
 
 The latest instruction makes the package headless: it owns accessible structure, signals and interactions. Each application owns Tailwind, CSS, colors, fonts, spacing, shape, breakpoints and visual branding. There is no exported theme and no Tailwind runtime/peer dependency. The demo is a separate consumer; its abstract design references are illustrative and owned exclusively by the demo application.
 
@@ -13,10 +17,12 @@ The latest instruction makes the package headless: it owns accessible structure,
 ```text
 projects/machetico-ui/
   src/public-api.ts
-  src/lib/components/       # external templates and direct component barrel
-  src/lib/directives/       # native element behaviors
-  src/lib/interfaces/       # one named contract per file
-  src/lib/services/         # dialog focus identifiers and scroll ownership
+  src/lib/{components,directives,services}/index.ts # aggregate public barrels
+  <ui-entry>/public-api.ts  # narrow public UI entry points
+  <ui-entry>/src/lib/       # owned components/directives and external templates
+  core/src/lib/interfaces/  # one named UI contract per file
+  core/src/lib/services/    # shared scroll ownership
+  view-ids/src/lib/services/ # request-owned accessible identifiers
   api/src/public-api.ts     # optional machetico-ui/api entry point
   api/src/services/         # generic API facade and central barrel
   api/src/interfaces/       # transport contracts only
@@ -38,7 +44,7 @@ The API entry point is optional for consumers; importing UI cannot initialize tr
 
 ## Verification
 
-See AGENTS.md for mandatory commands. Tests import the built distribution. Browser tests run a separate synthetic consumer application. CI uploads a tarball artifact; it does not publish npm packages or deploy consumer applications. Existing application startup budgets remain unchanged because no consumer has been migrated.
+See AGENTS.md for mandatory commands. Tests import the built distribution. Browser tests run a separate synthetic consumer application. CI uploads a tarball artifact; it does not publish npm packages or deploy consumer applications. Consumer adoption must satisfy each application's unchanged startup budgets; use narrow public imports.
 
 ## Documentation SPA and rendering decision
 
@@ -66,7 +72,7 @@ On 26 November 2026 the maintainer requested that the main view state free use a
 
 On 26 November 2026 the maintainer requested mutually exclusive documentation submenus and individual service views. The demo uses the installed public Angular ARIA accordion directives; successful navigation opens only the route's category, including SSR, browser history and mobile navigation. Services have individual `/services/:service` views.
 
-The maintainer explicitly requested both Taurus scroll concerns. Taurus implements native scrollbar appearance in `src/scrollbars.css` and scoped viewport animations in `services/scroll-reveal`. The shared library exposes Scrollbar for reversible semantic activation on native scroll containers and scoped ScrollReveal for intersection/animation lifecycle. Consumer CSS owns colors, width, shapes and pending-state visuals; caller-provided Web Animations keyframes own animation identity. Native scrolling is retained. Reveal delegates its observation to ScrollReveal so it does not maintain a competing implementation. ScrollLock and ViewIds retain their internal scope and are documented individually as internal implementation responsibilities.
+The maintainer explicitly requested both Taurus scroll concerns. Taurus implements native scrollbar appearance in `src/scrollbars.css` and scoped viewport animations in `services/scroll-reveal`. The shared library exposes Scrollbar for reversible semantic activation on native scroll containers and scoped ScrollReveal for intersection/animation lifecycle. Consumer CSS owns colors, width, shapes and pending-state visuals; caller-provided Web Animations keyframes own animation identity. Native scrolling is retained. Reveal delegates its observation to ScrollReveal so it does not maintain a competing implementation. ScrollLock and ViewIds are public core services. Components and application adapters share their Angular-owned instances rather than creating competing counters or identifiers.
 
 ## Demo identity and action simplification
 

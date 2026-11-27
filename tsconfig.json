@@ -12,7 +12,11 @@
     "noImplicitReturns": true,
     "lib": ["ES2022", "DOM"],
     "noPropertyAccessFromIndexSignature": true,
-    "noFallthroughCasesInSwitch": true
+    "noFallthroughCasesInSwitch": true,
+    "paths": {
+      "machetico-ui/*": ["./projects/machetico-ui/*/public-api.ts"],
+      "machetico-ui/api": ["./projects/machetico-ui/api/src/public-api.ts"]
+    }
   },
   "angularCompilerOptions": {
     "strictTemplates": true,

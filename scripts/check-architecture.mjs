@@ -7,7 +7,22 @@ const walk = (path) =>
   readdirSync(path, { withFileTypes: true }).flatMap((entry) =>
     entry.isDirectory() ? walk(resolve(path, entry.name)) : [resolve(path, entry.name)],
   );
-const sources = [...walk(resolve(root, 'src')), ...walk(resolve(root, 'api/src'))];
+const entryPoints = readdirSync(root, { withFileTypes: true })
+  .filter(
+    (entry) =>
+      entry.isDirectory() &&
+      entry.name !== 'api' &&
+      existsSync(resolve(root, entry.name, 'ng-package.json')),
+  )
+  .map((entry) => resolve(root, entry.name));
+const sources = [
+  ...walk(resolve(root, 'src')),
+  ...walk(resolve(root, 'api/src')),
+  ...entryPoints.flatMap((entry) => [
+    ...walk(resolve(entry, 'src')),
+    resolve(entry, 'public-api.ts'),
+  ]),
+];
 const files = sources.filter((file) => file.endsWith('.ts'));
 const graph = new Map();
 const referenced = new Set();
