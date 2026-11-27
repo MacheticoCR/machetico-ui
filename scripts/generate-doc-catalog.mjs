@@ -3,7 +3,7 @@ import { resolve, basename, dirname } from 'node:path';
 import ts from 'typescript';
 import * as prettier from 'prettier';
 import { componentExamples, directiveExamples } from '../demo/example-markup.js';
-const root = 'projects/machetico-ui/src/lib';
+const root = 'projects/machetico-ui';
 const walk = (path) =>
   readdirSync(path, { withFileTypes: true }).flatMap((entry) =>
     entry.isDirectory() ? walk(resolve(path, entry.name)) : [resolve(path, entry.name)],
@@ -16,7 +16,9 @@ const parsed = ts.parseJsonConfigFileContent(
 );
 const program = ts.createProgram(parsed.fileNames, parsed.options);
 const checker = program.getTypeChecker();
-const base = program.getSourceFile(resolve(`${root}/components/form-control/form-control.ts`));
+const base = program.getSourceFile(
+  resolve(`${root}/forms/src/lib/components/form-control/form-control.ts`),
+);
 const baseClass = base.statements.find(ts.isClassDeclaration);
 /**
  * Reads public signal inputs, models and outputs from a concrete declaration.
@@ -70,8 +72,13 @@ function rows(declaration, ast) {
  * @returns Sorted documentation entries derived from source metadata and TSDoc.
  */
 function catalog(group, decorator) {
-  return walk(resolve(root, group))
-    .filter((file) => file.endsWith('.ts') && !file.endsWith('index.ts'))
+  return walk(resolve(root))
+    .filter(
+      (file) =>
+        file.endsWith('.ts') &&
+        !file.endsWith('index.ts') &&
+        file.replaceAll('\\', '/').includes(`/${group}/`),
+    )
     .flatMap((file) => {
       const ast = program.getSourceFile(file);
       return ast.statements.filter(ts.isClassDeclaration).flatMap((declaration) => {
@@ -82,6 +89,36 @@ function catalog(group, decorator) {
         const id = basename(dirname(file));
         let inputs = rows(declaration, ast);
         if (['input', 'textarea'].includes(id)) inputs = [...rows(baseClass, base), ...inputs];
+        if (id === 'sidebar') {
+          const navigationSource = program.getSourceFile(
+            resolve(
+              `${root}/navigation/src/lib/components/navigation-sidebar/navigation-sidebar.ts`,
+            ),
+          );
+          inputs = [
+            ...rows(navigationSource.statements.find(ts.isClassDeclaration), navigationSource),
+            ...inputs,
+          ];
+        }
+        if (id === 'search-select') {
+          const selectSource = program.getSourceFile(
+            resolve(`${root}/selection/src/lib/components/select/select.ts`),
+          );
+          inputs = [
+            ...rows(selectSource.statements.find(ts.isClassDeclaration), selectSource),
+            ...inputs,
+          ];
+        }
+        const methodOwners = [{ declaration, ast }];
+        if (id === 'table') {
+          const nativeSource = program.getSourceFile(
+            resolve(`${root}/surface/src/lib/directives/native-table/native-table.ts`),
+          );
+          methodOwners.push({
+            declaration: nativeSource.statements.find(ts.isClassDeclaration),
+            ast: nativeSource,
+          });
+        }
         const comment = declaration.jsDoc?.[0]?.comment;
         return [
           {
@@ -89,28 +126,30 @@ function catalog(group, decorator) {
             name: declaration.name.text,
             description: typeof comment === 'string' ? comment : 'Reusable headless control.',
             api: inputs,
-            methods: declaration.members
-              .filter(
-                (member) =>
-                  ts.isMethodDeclaration(member) &&
-                  !/^ng(On|After|Do)/.test(member.name.getText(ast)) &&
-                  !member.modifiers?.some((modifier) =>
-                    [ts.SyntaxKind.PrivateKeyword, ts.SyntaxKind.ProtectedKeyword].includes(
-                      modifier.kind,
+            methods: methodOwners.flatMap(({ declaration, ast }) =>
+              declaration.members
+                .filter(
+                  (member) =>
+                    ts.isMethodDeclaration(member) &&
+                    !/^ng(On|After|Do)/.test(member.name.getText(ast)) &&
+                    !member.modifiers?.some((modifier) =>
+                      [ts.SyntaxKind.PrivateKeyword, ts.SyntaxKind.ProtectedKeyword].includes(
+                        modifier.kind,
+                      ),
                     ),
-                  ),
-              )
-              .map((member) => ({
-                name: member.name.getText(ast),
-                signature:
-                  member.name.getText(ast) +
-                  '(' +
-                  member.parameters.map((parameter) => parameter.getText(ast)).join(', ') +
-                  '): ' +
-                  (member.type?.getText(ast) ?? 'void'),
-                description:
-                  typeof member.jsDoc?.[0]?.comment === 'string' ? member.jsDoc[0].comment : '',
-              })),
+                )
+                .map((member) => ({
+                  name: member.name.getText(ast),
+                  signature:
+                    member.name.getText(ast) +
+                    '(' +
+                    member.parameters.map((parameter) => parameter.getText(ast)).join(', ') +
+                    '): ' +
+                    (member.type?.getText(ast) ?? 'void'),
+                  description:
+                    typeof member.jsDoc?.[0]?.comment === 'string' ? member.jsDoc[0].comment : '',
+                })),
+            ),
           },
         ];
       });
@@ -119,7 +158,7 @@ function catalog(group, decorator) {
 }
 const iconSource = ts.createSourceFile(
   'icons.ts',
-  readFileSync(`${root}/interfaces/icon-name.type.ts`, 'utf8'),
+  readFileSync(`${root}/core/src/lib/interfaces/icon-name.type.ts`, 'utf8'),
   ts.ScriptTarget.Latest,
   true,
 );

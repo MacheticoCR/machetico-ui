@@ -1,6 +1,6 @@
 {
   "name": "machetico-ui",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "sideEffects": false,
   "peerDependencies": {
     "@angular/aria": "22.2.6",

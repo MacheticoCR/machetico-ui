@@ -217,6 +217,10 @@
   machetico-textarea textarea {
     @apply w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-base disabled:opacity-50;
   }
+  machetico-search-select input,
+  [macheticoField] {
+    @apply w-full rounded-lg border border-slate-300 bg-white px-3 py-2 disabled:opacity-50;
+  }
   machetico-checkbox input {
     @apply size-4;
   }
@@ -229,13 +233,13 @@
   machetico-form-actions {
     @apply flex flex-wrap gap-3;
   }
-  machetico-select {
+  :is(machetico-select, machetico-search-select) {
     @apply my-3 block;
   }
-  machetico-select [role='listbox'] {
+  :is(machetico-select, machetico-search-select) [role='listbox'] {
     @apply z-30 rounded-lg border border-slate-300 bg-white p-2 shadow-lg;
   }
-  machetico-select [role='option'] {
+  :is(machetico-select, machetico-search-select) [role='option'] {
     @apply cursor-pointer rounded px-4 py-2 aria-selected:bg-blue-100;
   }
   machetico-image-slider {
@@ -666,7 +670,7 @@
   .docs-design {
     @apply order-last w-full sm:order-none sm:ml-auto sm:w-auto;
   }
-  .docs-design machetico-select {
+  .docs-design :is(machetico-select, machetico-search-select) {
     @apply my-0;
   }
   .docs-design [role='combobox'] {

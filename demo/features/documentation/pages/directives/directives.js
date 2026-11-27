@@ -12,6 +12,11 @@ import template from './directives.html?raw';
  */
 export class DirectivesDocs {
   /**
+   * Immutable parent-owned sort for the native-table example; no request is sent.
+   * @property nativeSort
+   */
+  nativeSort = signal(null);
+  /**
    * Complete catalogue used by the category overview.
    * @property catalogue
    */

@@ -588,3 +588,24 @@ test('design selector stays usable on mobile and the home explains the consumer 
   await expect(page.getByRole('dialog', { name: 'Documentación', exact: true })).toBeVisible();
   await page.keyboard.press('Escape');
 });
+
+test('searchable ARIA select filters without implicit commit or layout shift', async ({ page }) => {
+  await page.goto('/components/search-select');
+  await page.locator('html[data-bootstrapped="true"]').waitFor();
+  const example = page.locator('[data-example=search-select]');
+  const input = example.getByRole('combobox');
+  const result = example.locator('p').last();
+  await input.scrollIntoViewIfNeeded();
+  const before = await result.boundingBox();
+  await input.focus();
+  await input.fill('Segunda');
+  await expect(page.getByRole('option', { name: 'Segunda opción', exact: true })).toBeVisible();
+  await expect(page.getByRole('option', { name: 'Primera opción', exact: true })).toHaveCount(0);
+  await expect(result).toContainText('uno');
+  expect((await result.boundingBox()).y).toBeCloseTo(before.y, 0);
+  await input.press('ArrowDown');
+  await input.press('Enter');
+  await expect(result).toContainText('dos');
+  await input.press('Escape');
+  await expect(input).toBeFocused();
+});

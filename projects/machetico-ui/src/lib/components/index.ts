@@ -1,39 +1,36 @@
-export * from './alert/alert';
-export * from './checkbox/checkbox';
-export * from './choice-card/choice-card';
-export * from './choice-list/choice-list';
-export * from './deferred-error/deferred-error';
-export * from './dialog/dialog';
-export * from './empty-state/empty-state';
-export * from './feedback/feedback';
-export * from './form-actions/form-actions';
-export * from './form-control/form-control';
-export * from './icon/icon';
-export * from './image-slider/image-slider';
-export * from './input/input';
-export * from './page-heading/page-heading';
-export * from './page-skeleton/page-skeleton';
-export * from './pagination/pagination';
-export * from './panel/panel';
-export * from './section-skeleton/section-skeleton';
-export * from './select/select';
-export * from './stat-card/stat-card';
-export * from './textarea/textarea';
-export * from './sidebar/sidebar';
-export * from './slider/slider';
-export * from './table/table';
-export * from './route-status/route-status';
-export * from './site-footer/site-footer';
-export * from './field-group/field-group';
-export * from './metrics-list/metrics-list';
-export * from './comparison-list/comparison-list';
-export * from './checklist/checklist';
-export * from './summary-card/summary-card';
-export * from './legal-document/legal-document';
-export * from './consent/consent';
-export * from './content-section/content-section';
-export * from './feature-chapter/feature-chapter';
-export * from './hero-section/hero-section';
-export * from './stepper/stepper';
-export * from './site-header/site-header';
-export * from './background-video/background-video';
+export {
+  alertVariants,
+  Alert,
+  Feedback,
+  PageSkeleton,
+  SectionSkeleton,
+  RouteStatus,
+} from 'machetico-ui/shell';
+export { Icon } from 'machetico-ui/icon';
+export { FormControl, Input, Textarea, Checkbox } from 'machetico-ui/forms';
+export { Select, SearchSelect, ChoiceList, Pagination, Stepper } from 'machetico-ui/selection';
+export { ImageSlider, BackgroundVideo } from 'machetico-ui/media';
+export { Dialog, Sidebar } from 'machetico-ui/overlay';
+export {
+  ChoiceCard,
+  FormActions,
+  PageHeading,
+  Panel,
+  StatCard,
+  Slider,
+  Table,
+  FieldGroup,
+  MetricsList,
+  ComparisonList,
+  Checklist,
+  SummaryCard,
+  LegalDocument,
+  Consent,
+  ContentSection,
+  FeatureChapter,
+  HeroSection,
+} from 'machetico-ui/layout';
+
+export * from 'machetico-ui/navigation';
+
+export { DeferredError, EmptyState } from 'machetico-ui/states';

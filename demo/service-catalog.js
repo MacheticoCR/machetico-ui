@@ -16,7 +16,7 @@ export const serviceCatalog = [
     description:
       'Activa de forma reversible los estilos de barras nativas definidos por su aplicación.',
     visibility: 'Público',
-    entryPoint: 'machetico-ui',
+    entryPoint: 'machetico-ui/core',
   },
   {
     id: 'scroll-reveal',
@@ -24,21 +24,21 @@ export const serviceCatalog = [
     description:
       'Observación de viewport y ciclo de vida de animaciones, con movimiento definido por el consumidor.',
     visibility: 'Público · proveedor local',
-    entryPoint: 'machetico-ui',
+    entryPoint: 'machetico-ui/core',
   },
   {
     id: 'scroll-lock',
     name: 'ScrollLock',
     description:
       'Coordina los bloqueos de scroll de diálogos y restaura el documento al cerrar el último modal.',
-    visibility: 'Interno · usar Dialog o Sidebar',
-    entryPoint: 'No exportado',
+    visibility: 'Público · compartido con Dialog y Sidebar',
+    entryPoint: 'machetico-ui/core',
   },
   {
     id: 'view-ids',
     name: 'ViewIds',
     description: 'Asigna identificadores accesibles dentro de cada aplicación o solicitud SSR.',
-    visibility: 'Interno · usar los componentes',
-    entryPoint: 'No exportado',
+    visibility: 'Público · por aplicación/solicitud SSR',
+    entryPoint: 'machetico-ui/view-ids',
   },
 ];

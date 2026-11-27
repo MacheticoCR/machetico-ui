@@ -1,12 +1,13 @@
 <nav aria-label="Ruta de documentación"><a routerLink="/services">Todos los servicios</a></nav>
 <machetico-page-heading
 	title="ViewIds"
-	eyebrow="INTERNO · IDENTIFICADORES ACCESIBLES"
+	eyebrow="PÚBLICO · MACHETICO-UI/CORE"
 	description="Asigna relaciones accesibles sin compartir contadores entre aplicaciones o solicitudes SSR."
 />
 <machetico-alert variant="info"
-	>ViewIds es interno y no está exportado para uso directo. Los componentes de machetico-ui lo
-	utilizan cuando necesitan relacionar sus elementos.</machetico-alert
+	>Importe ViewIds desde machetico-ui/core para relaciones accesibles en composiciones propias.
+	Los componentes de machetico-ui comparten la misma instancia por aplicación o solicitud
+	SSR.</machetico-alert
 >
 <machetico-panel title="Responsabilidad y contrato"
 	><div class="reference-body">
@@ -28,7 +29,7 @@
 			<a routerLink="/components/dialog">Dialog</a> relaciona su título con aria-labelledby.
 			<a routerLink="/components/site-header">SiteHeader</a> relaciona el botón de navegación
 			con aria-controls. Puede inspeccionar esas relaciones en sus ejemplos sin importar el
-			servicio interno.
+			servicio en componentes que ya administran sus relaciones.
 		</p>
 	</div></machetico-panel
 >

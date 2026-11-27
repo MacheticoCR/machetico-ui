@@ -2,6 +2,6 @@ export * from './lib/components';
 
 export * from './lib/directives';
 
-export type * from './lib/interfaces';
+export type * from 'machetico-ui/core';
 
-export { Scrollbar, ScrollReveal } from './lib/services';
+export { Scrollbar, ScrollReveal, ScrollLock, ViewIds } from './lib/services';
