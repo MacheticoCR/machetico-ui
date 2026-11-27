@@ -3,6 +3,8 @@
  * @property componentExamples
  */
 export const componentExamples = {
+  'navigation-sidebar':
+    '<machetico-navigation-sidebar title="Navegación de ejemplo" [collapseBelow]="640" toggleLabel="Mostrar enlaces" [(open)]="sidebar"><a sidebarBrand routerLink="/">Marca de ejemplo</a><nav sidebarLinks aria-label="Enlaces de ejemplo"><a routerLink="/components">Componentes</a><a routerLink="/services">Servicios</a></nav></machetico-navigation-sidebar>',
   'site-header':
     '<machetico-site-header label="Navegación de ejemplo" toggleLabel="Mostrar navegación"><a headerBrand routerLink="/components">Marca de ejemplo</a><a headerLinks routerLink="/components/slider">Slider</a><a headerActions routerLink="/services">Servicios</a></machetico-site-header>',
   'background-video':
@@ -41,6 +43,8 @@ export const componentExamples = {
     '<machetico-section-skeleton label="Cargando registros de ejemplo" [count]="2" />',
   select:
     '<machetico-select label="Seleccionar opción" [options]="options" [(value)]="choice" /><p>Valor seleccionado: {{ choice() }}</p>',
+  'search-select':
+    '<machetico-search-select label="Buscar opción" [options]="options" [(value)]="choice" emptyLabel="No hay coincidencias" /><p>Valor confirmado: {{ choice() }}</p>',
   sidebar:
     '<button type="button" id="open-sidebar" macheticoButton (click)="sidebar.set(true)">Abrir sidebar</button><machetico-sidebar title="Navegación" [(open)]="sidebar"><nav aria-label="Navegación de ejemplo"><a href="#sidebar" (click)="sidebar.set(false)">Resumen</a><a href="#sidebar" (click)="sidebar.set(false)">Historial</a></nav></machetico-sidebar>',
   slider:
@@ -82,6 +86,10 @@ export const componentExamples = {
  * @property directiveExamples
  */
 export const directiveExamples = {
+  'native-table':
+    '<table macheticoTable #nativeTable="macheticoTable" [tableSort]="nativeSort()" (tableSortChanged)="nativeSort.set($event)"><caption>Tabla con celdas propias</caption><thead><tr><th scope="col" [attr.aria-sort]="nativeSort()?.direction === \'asc\' ? \'ascending\' : nativeSort()?.direction === \'desc\' ? \'descending\' : \'none\'"><button type="button" (click)="nativeTable.requestSort(\'name\')">Nombre</button></th></tr></thead><tbody><tr><td>Ejemplo sintético</td></tr></tbody></table>',
+  'native-field':
+    '<label>Correo de ejemplo<input macheticoField type="email" required [ngModel]="\'\'" #field="ngModel" /></label><p>La directiva comparte aria-invalid después de interactuar; Angular conserva validadores y value accessor nativos.</p>',
   reveal:
     '<article macheticoReveal macheticoCard><h3>Aparición progresiva</h3><p>Contenido visible en SSR; la aplicación define su transición.</p></article>',
   button:

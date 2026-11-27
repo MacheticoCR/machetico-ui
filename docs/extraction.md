@@ -1,6 +1,6 @@
 # Extraction inventory
 
-The initial library adapts reusable presentation patterns from Machetico's Taurus frontend and the transport/ownership patterns reviewed in Folio. Reference repositories were read only. Megaphone and Folio consumers have not been migrated.
+The initial library adapts reusable presentation patterns from Machetico's Taurus frontend and the transport/ownership patterns reviewed in Folio. The maintainer subsequently authorized adoption in all four applications. Generic controls now delegate to the package; domain adapters retain their own contracts.
 
 | Area                                           | Initial package                                   | Boundary                                                           |
 | ---------------------------------------------- | ------------------------------------------------- | ------------------------------------------------------------------ |
@@ -17,11 +17,11 @@ The initial library adapts reusable presentation patterns from Machetico's Tauru
 | Catalog/product/sales widgets                  | Not extracted                                     | Depend on product, commerce and reporting contracts                |
 | Image upload                                   | Not extracted                                     | Upload service/backend ownership needs a separate adapter contract |
 
-The generic UI now has one independent home. Replacing duplicated implementations in existing consumers is subsequent work requiring their own migrations, regression gates and PRs. This inventory does not claim every application shared directory has already been migrated.
+The generic UI now has one independent home. Applications import narrow UI entry points. Native field/table directives preserve existing business forms and cells; application adapters own translation, legal copy, currency, session and permissions.
 
 ## MacheTico landing frontend
 
-Reviewed the root Angular frontend (excluding its nested reference checkouts). It remains unchanged, including its pre-existing package-lock edit. These are reusable adaptations rather than a migration of application contracts.
+Reviewed the root Angular frontend (excluding its nested reference checkouts). Its shell, video, metrics, home compositions, reveal, consent and native controls now consume shared implementations. Pre-existing unrelated changes are preserved. Application contracts remain local.
 
 | Reference presentation                                                              | Library composition                                 | Application ownership retained                                               |
 | ----------------------------------------------------------------------------------- | --------------------------------------------------- | ---------------------------------------------------------------------------- |
@@ -43,4 +43,4 @@ Reviewed the root Angular frontend (excluding its nested reference checkouts). I
 | PanelShell                                                                          | Sidebar, SiteHeader, PageHeading                    | Lazy routes, guards and session ownership                                    |
 | TestCredentials                                                                     | Not copied                                          | Development account credentials remain application-owned                     |
 
-The demo provides local synthetic media (`demo/public/samples/background.webm`, reproducible with `node scripts/generate-demo-video.mjs`) and synthetic text. No customer records, secret configuration or backend code is extracted. There is no claim that the reference consumer now installs this library.
+The demo provides local synthetic media (`demo/public/samples/background.webm`, reproducible with `node scripts/generate-demo-video.mjs`) and synthetic text. No customer records, secret configuration or backend code is extracted. The consumer installs the package; no private domain configuration is distributed.

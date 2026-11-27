@@ -1,0 +1,8 @@
+<footer data-part="footer" [class]="footerClass()">
+	<span data-part="copyright">{{ copyright() }}</span>
+	<ng-content select="[footerCredit]" />
+	<nav data-part="navigation" [attr.aria-label]="navigationLabel()">
+		<ng-content select="[footerLinks]" />
+	</nav>
+	<ng-content />
+</footer>

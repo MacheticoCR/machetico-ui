@@ -1,12 +1,13 @@
 <nav aria-label="Ruta de documentación"><a routerLink="/services">Todos los servicios</a></nav>
 <machetico-page-heading
 	title="ScrollLock"
-	eyebrow="INTERNO · CONSUMIR DIALOG Y SIDEBAR"
+	eyebrow="PÚBLICO · MACHETICO-UI/CORE"
 	description="Coordina bloqueo y restauración de scroll entre los modales de la misma aplicación."
 />
 <machetico-alert variant="info"
-	>ScrollLock no se exporta desde machetico-ui. Use los componentes públicos; no agregue otro
-	bloqueo manual sobre el mismo modal.</machetico-alert
+	>ScrollLock se comparte con Dialog y Sidebar. Para un modal propio puede importar ScrollLock
+	desde machetico-ui/core; no adquiera un bloqueo adicional sobre Dialog o
+	Sidebar.</machetico-alert
 >
 <machetico-panel title="Ejemplo mediante Dialog"
 	><div class="reference-body" data-service-example="scroll-lock">

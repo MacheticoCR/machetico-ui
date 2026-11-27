@@ -15,7 +15,7 @@ npm install machetico-ui
 Para fijar la versión actual de forma explícita:
 
 ```sh
-npm install machetico-ui@0.1.0
+npm install machetico-ui@0.2.0
 ```
 
 Configure Localize en `projects.<app>.architect.build.options.polyfills` de angular.json para el navegador y el servidor:
@@ -26,7 +26,7 @@ Configure Localize en `projects.<app>.architect.build.options.polyfills` de angu
 
 En bootstraps personalizados sin el builder Angular, importe `@angular/localize/init` antes del bootstrap de cada entorno. Los controles conservan i18n nativo; la biblioteca declara el peer y el consumidor posee su inicialización. Taurus conserva su carga de idioma existente. Los otros tres frontends quedan preparados mediante la configuración de polyfills del builder.
 
-Importe desde `machetico-ui` y añada los componentes standalone a `imports`. Para `ngModel`/formularios conserve FormsModule o ReactiveFormsModule en la pantalla propietaria. No importe archivos internos de dist, servicios internos o templates del paquete.
+Importe desde los entry points públicos específicos y añada los componentes standalone a `imports`. Por ejemplo: `machetico-ui/button`, `machetico-ui/native-field`, `machetico-ui/surface`, `machetico-ui/navigation`, `machetico-ui/selection`, `machetico-ui/forms`, `machetico-ui/overlay`, `machetico-ui/media`, `machetico-ui/layout` y `machetico-ui/core`. El entry point raíz agrega todos los controles; evítelo en el bootstrap para conservar carga diferida. Para `ngModel`/formularios conserve FormsModule o ReactiveFormsModule en la pantalla propietaria. No importe archivos internos de dist, servicios internos o templates del paquete.
 
 ## Identidad y contratos
 
@@ -34,6 +34,9 @@ La biblioteca aporta comportamiento y estructura accesible. Cada aplicación def
 
 - Botones: `<button type="button" macheticoButton [busy]="saving()">…</button>`. El padre posee la acción y su estado pendiente.
 - Select: `options` contiene `value/label`; `[(value)]` conserva el tipo del consumidor. Traduzca solo las etiquetas del sistema en la aplicación. No convierta identificadores en etiquetas ni persista valores visibles.
+- NativeField: `macheticoField` conserva el control nativo y su value accessor. Expone `aria-invalid` después de touched; si la aplicación ya posee ese atributo, use `[macheticoFieldAria]="false"`.
+- NativeTable: `macheticoTable` conserva caption/celdas y emite orden con `tableSortChanged`; el propietario ejecuta la lectura.
+- SearchSelect: la búsqueda local no confirma un valor al escribir; Angular ARIA posee selección y teclado. La aplicación aporta opciones y traducciones.
 - Input/Textarea/Checkbox: son value accessors nativos. Mantenga names, labels, validadores y estado touched/disabled del formulario.
 - Dialog: cree con `@if` y destruya al recibir `closed`; Sidebar usa `[(open)]`. Ambos conservan foco/scroll. Las animaciones visuales del consumidor no deben bloquear un cierre.
 - Table: filas, claves y columnas pertenecen al dominio; orden/reintento son intenciones, no HTTP automático.
@@ -48,7 +51,7 @@ La biblioteca aporta comportamiento y estructura accesible. Cada aplicación def
 | Megaphone         | Variables `--app-*`, restricciones de carga por ruta | Mantener selectores de país/teléfono especializados, interceptores y rutas SSR. No arrastrar Forms/ARIA a login por un barrel de funcionalidades.                                                                                 |
 | Folio             | Tema del producto y formularios nativos              | Mantener expediente/proceso/documento, consulta sin cuenta, descargas y allowlist SSR. Un componente visual no decide autorización ni aceptación institucional.                                                                   |
 
-La homologación de versiones prepara la instalación; no afirma una migración visual completa. Sustituya cada control local, sus imports y reglas globales en un cambio revisable. Elimine el comportamiento duplicado una vez cubiertos teclado, foco, estados, traducción y responsive; conserve wrappers de negocio que aporten responsabilidad real. No cambie contratos HTTP como parte de la adopción visual.
+La adopción usa controles compartidos reales: Taurus reexporta sus controles genéricos, Megaphone delega modales y búsqueda de país, Folio aplica las directivas a formularios/tablas nativos y el landing compone su presentación con la biblioteca. Elimine el comportamiento duplicado una vez cubiertos teclado, foco, estados, traducción y responsive; conserve wrappers de negocio que aporten responsabilidad real. No cambie contratos HTTP como parte de la adopción visual.
 
 ## Validación
 

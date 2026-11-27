@@ -1,0 +1,14 @@
+<aside data-part="inline-sidebar" [attr.aria-label]="title()">
+	<machetico-site-header
+		[label]="title()"
+		[collapseBelow]="collapseBelow()"
+		[headerClass]="headerClass()"
+		[navigationClass]="navigationClass()"
+		[toggleClass]="toggleClass()"
+		[toggleLabel]="toggleLabel()"
+		[(open)]="open"
+	>
+		<div headerBrand><ng-content select="[sidebarBrand]" /></div>
+		<div headerLinks><ng-content select="[sidebarLinks]" /></div>
+	</machetico-site-header>
+</aside>

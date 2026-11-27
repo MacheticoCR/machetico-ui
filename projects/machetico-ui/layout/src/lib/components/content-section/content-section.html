@@ -1,0 +1,16 @@
+<section data-part="section" [attr.aria-label]="title()">
+	@if (contentTemplate(); as content) {
+		<ng-container [ngTemplateOutlet]="content" />
+	} @else {
+		<header>
+			@if (eyebrow()) {
+				<p data-part="eyebrow">{{ eyebrow() }}</p>
+			}
+			<h2>{{ title() }}</h2>
+			@if (description()) {
+				<p>{{ description() }}</p>
+			}
+		</header>
+		<div data-part="content"><ng-content /></div>
+	}
+</section>
